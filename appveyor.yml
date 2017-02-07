@@ -1,0 +1,37 @@
+os: Visual Studio 2015
+
+version: 1.0.3.{build}
+
+configuration:
+- Debug
+- Release
+
+platform: Any CPU
+
+init:
+- ps: $Env:LABEL = "CI" + $Env:APPVEYOR_BUILD_NUMBER.PadLeft(5, "0")
+
+install:
+- ps: Start-FileDownload 'https://dotnetcli.blob.core.windows.net/dotnet/beta/Installers/Latest/dotnet-dev-win-x64.latest.exe'
+- cmd: dotnet-dev-win-x64.latest.exe /quiet
+
+environment:
+  PATH: $(PATH);$(PROGRAMFILES)\dotnet\
+
+build_script:
+- appveyor-retry dotnet restore .\src\WebDAV-Client -v Minimal
+- appveyor-retry dotnet restore .\test\WebDAV-Client.Tests -v Minimal
+
+- dotnet build .\src\WebDAV-Client\project.json -c %CONFIGURATION%
+- dotnet build .\test\WebDAV-Client.Tests\project.json -c %CONFIGURATION%
+
+- dotnet pack -c %CONFIGURATION% --no-build --version-suffix %LABEL% -o .\artifacts .\src\WebDAV-Client\project.json
+
+test_script:
+- dotnet test -c %CONFIGURATION% --no-build .\test\WebDAV-Client.Tests
+
+artifacts:
+- path: artifacts\**\*.*
+
+cache:
+- packages

@@ -1,0 +1,29 @@
+{
+    "version": "1.0.0-*",
+    "authors": [ "Stef Heyenrath" ],
+    "dependencies": {
+        "WebDAV-Client": { "target": "project" },
+        "NSubstitute": "2.0.1-rc",
+        "dotnet-test-xunit": "2.2.0-preview2-build1029",
+        "xunit": "2.2.0-beta2-build3300"
+    },
+
+    "frameworks": {
+        "netcoreapp1.0": {
+            "buildOptions": { "define": [ "NETSTANDARD" ] },
+            "imports": [
+                "dnxcore50",
+                "dotnet5.4",
+                "portable-net451+win8"
+            ],
+            "dependencies": {
+                "Microsoft.NETCore.App": {
+                    "type": "platform",
+                    "version": "1.1.0"
+                }
+            }
+        }
+    },
+
+    "testRunner": "xunit"
+}

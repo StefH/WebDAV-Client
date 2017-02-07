@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F3674172-2C87-4529-8B3B-D4047ED5F1C3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{570FF30A-3A31-43E4-A8C3-56610FA26DFA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7898F0E5-AE83-4BE9-B8D9-BBD92A4858DF}"
+	ProjectSection(SolutionItems) = preProject
+		appveyor.yml = appveyor.yml
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "WebDAV-Client", "src\WebDAV-Client\WebDAV-Client.xproj", "{7C2D4AAD-02B1-4E29-9C10-F397482DC6FC}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "WebDAV-Client.Tests", "test\WebDAV-Client.Tests\WebDAV-Client.Tests.xproj", "{9C2BF524-C306-4C94-BAC9-2E4ED06B8943}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7C2D4AAD-02B1-4E29-9C10-F397482DC6FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C2D4AAD-02B1-4E29-9C10-F397482DC6FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C2D4AAD-02B1-4E29-9C10-F397482DC6FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C2D4AAD-02B1-4E29-9C10-F397482DC6FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C2BF524-C306-4C94-BAC9-2E4ED06B8943}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C2BF524-C306-4C94-BAC9-2E4ED06B8943}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C2BF524-C306-4C94-BAC9-2E4ED06B8943}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C2BF524-C306-4C94-BAC9-2E4ED06B8943}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7C2D4AAD-02B1-4E29-9C10-F397482DC6FC} = {F3674172-2C87-4529-8B3B-D4047ED5F1C3}
+		{9C2BF524-C306-4C94-BAC9-2E4ED06B8943} = {570FF30A-3A31-43E4-A8C3-56610FA26DFA}
+	EndGlobalSection
+EndGlobal
