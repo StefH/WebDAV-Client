@@ -2,6 +2,7 @@
 using System;
 using System.Net.Http;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Xml.Linq;
 using WebDav.Client.Tests.TestDoubles;
 using WebDav.Response;
@@ -220,7 +221,7 @@ namespace WebDav.Client.Tests.WebDavClientTests
         }
 
         [Fact]
-        public async void When_IsCalledWithPrefixedNamespaces_Should_IncludeThemInRequest()
+        public async Task When_IsCalledWithPrefixedNamespaces_Should_IncludeThemInRequest()
         {
             const string expectedContent =
 @"<?xml version=""1.0"" encoding=""utf-8""?>
