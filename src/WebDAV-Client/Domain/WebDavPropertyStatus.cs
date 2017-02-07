@@ -25,7 +25,7 @@ namespace WebDav
         /// <param name="description">The description of the operation.</param>
         public WebDavPropertyStatus(XName name, int statusCode, string description)
         {
-            Guard.NotNullOrEmpty((name ?? "").ToString(), "name");
+            Check.NotEmpty((name ?? "").ToString(), nameof(name));
 
             Name = name;
             StatusCode = statusCode;

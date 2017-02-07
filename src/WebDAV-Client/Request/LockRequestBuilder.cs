@@ -59,7 +59,7 @@ namespace WebDav.Request
             }
             else
             {
-                throw new ArgumentException("Lock owner is invalid.", "lockOwner");
+                throw new ArgumentException("Lock owner is invalid.", nameof(lockOwner));
             }
             return owner;
         }

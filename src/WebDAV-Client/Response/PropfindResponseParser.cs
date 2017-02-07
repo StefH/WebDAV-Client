@@ -12,7 +12,7 @@ namespace WebDav.Response
 
         public PropfindResponseParser(LockResponseParser lockResponseParser)
         {
-            Guard.NotNull(lockResponseParser, "lockResponseParser");
+            Check.NotNull(lockResponseParser, nameof(lockResponseParser));
             _lockResponseParser = lockResponseParser;
         }
 

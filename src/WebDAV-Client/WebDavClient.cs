@@ -87,7 +87,7 @@ namespace WebDav
         /// <returns>An instance of <see cref="PropfindResponse" /></returns>
         public async Task<PropfindResponse> Propfind(Uri requestUri, PropfindParameters parameters)
         {
-            Guard.NotNull(requestUri, "requestUri");
+            Check.NotNull(requestUri, nameof(requestUri));
 
             var applyTo = parameters.ApplyTo ?? ApplyTo.Propfind.ResourceAndChildren;
             var headers = new RequestHeaders
@@ -120,7 +120,7 @@ namespace WebDav
         /// <returns>An instance of <see cref="ProppatchResponse" /></returns>
         public async Task<ProppatchResponse> Proppatch(Uri requestUri, ProppatchParameters parameters)
         {
-            Guard.NotNull(requestUri, "requestUri");
+            Check.NotNull(requestUri, nameof(requestUri));
 
             var headers = new RequestHeaders();
             if (!string.IsNullOrEmpty(parameters.LockToken))
@@ -174,7 +174,7 @@ namespace WebDav
         /// <returns>An instance of <see cref="WebDavResponse" /></returns>
         public async Task<WebDavResponse> Mkcol(Uri requestUri, MkColParameters parameters)
         {
-            Guard.NotNull(requestUri, "requestUri");
+            Check.NotNull(requestUri, nameof(requestUri));
 
             var headers = new RequestHeaders();
             if (!string.IsNullOrEmpty(parameters.LockToken))
@@ -268,9 +268,9 @@ namespace WebDav
             return GetFile(requestUri, true, parameters.CancellationToken);
         }
 
-        internal async virtual Task<WebDavStreamResponse> GetFile(Uri requestUri, bool translate, CancellationToken cancellationToken)
+        internal virtual async Task<WebDavStreamResponse> GetFile(Uri requestUri, bool translate, CancellationToken cancellationToken)
         {
-            Guard.NotNull(requestUri, "requestUri");
+            Check.NotNull(requestUri, nameof(requestUri));
 
             var headers = new RequestHeaders
             {
@@ -321,7 +321,7 @@ namespace WebDav
         /// <returns>An instance of <see cref="WebDavResponse" /></returns>
         public async Task<WebDavResponse> Delete(Uri requestUri, DeleteParameters parameters)
         {
-            Guard.NotNull(requestUri, "requestUri");
+            Check.NotNull(requestUri, nameof(requestUri));
 
             var headers = new RequestHeaders();
             if (!string.IsNullOrEmpty(parameters.LockToken))
@@ -398,8 +398,8 @@ namespace WebDav
         /// <returns>An instance of <see cref="WebDavResponse" /></returns>
         public async Task<WebDavResponse> PutFile(Uri requestUri, Stream stream, PutFileParameters parameters)
         {
-            Guard.NotNull(requestUri, "requestUri");
-            Guard.NotNull(stream, "stream");
+            Check.NotNull(requestUri, nameof(requestUri));
+            Check.NotNull(stream, nameof(stream));
 
             var headers = new RequestHeaders();
             if (!string.IsNullOrEmpty(parameters.LockToken))
@@ -452,8 +452,8 @@ namespace WebDav
         /// <returns>An instance of <see cref="WebDavResponse" /></returns>
         public async Task<WebDavResponse> Copy(Uri sourceUri, Uri destUri, CopyParameters parameters)
         {
-            Guard.NotNull(sourceUri, "sourceUri");
-            Guard.NotNull(destUri, "destUri");
+            Check.NotNull(sourceUri, nameof(sourceUri));
+            Check.NotNull(destUri, nameof(destUri));
 
             var applyTo = parameters.ApplyTo ?? ApplyTo.Copy.ResourceAndAncestors;
             var headers = new RequestHeaders
@@ -513,8 +513,8 @@ namespace WebDav
         /// <returns>An instance of <see cref="WebDavResponse" /></returns>
         public async Task<WebDavResponse> Move(Uri sourceUri, Uri destUri, MoveParameters parameters)
         {
-            Guard.NotNull(sourceUri, "sourceUri");
-            Guard.NotNull(destUri, "destUri");
+            Check.NotNull(sourceUri, nameof(sourceUri));
+            Check.NotNull(destUri, nameof(destUri));
 
             var headers = new RequestHeaders
             {
@@ -570,7 +570,7 @@ namespace WebDav
         /// <returns>An instance of <see cref="LockResponse" /></returns>
         public async Task<LockResponse> Lock(Uri requestUri, LockParameters parameters)
         {
-            Guard.NotNull(requestUri, "requestUri");
+            Check.NotNull(requestUri, nameof(requestUri));
 
             var headers = new RequestHeaders();
             if (parameters.ApplyTo.HasValue)
@@ -629,7 +629,7 @@ namespace WebDav
         /// <returns>An instance of <see cref="WebDavResponse" /></returns>
         public async Task<WebDavResponse> Unlock(Uri requestUri, UnlockParameters parameters)
         {
-            Guard.NotNull(requestUri, "requestUri");
+            Check.NotNull(requestUri, nameof(requestUri));
 
             var headers = new RequestHeaders
             {
@@ -648,7 +648,7 @@ namespace WebDav
         /// <returns>This instance of <see cref="WebDavClient" /> to support chain calls.</returns>
         internal WebDavClient SetWebDavDispatcher(IWebDavDispatcher dispatcher)
         {
-            Guard.NotNull(dispatcher, "dispather");
+            Check.NotNull(dispatcher, "dispather");
             _dispatcher = dispatcher;
             return this;
         }
@@ -660,7 +660,7 @@ namespace WebDav
         /// <returns>This instance of <see cref="WebDavClient" /> to support chain calls.</returns>
         internal WebDavClient SetPropfindResponseParser(IResponseParser<PropfindResponse> responseParser)
         {
-            Guard.NotNull(responseParser, "responseParser");
+            Check.NotNull(responseParser, nameof(responseParser));
             _propfindResponseParser = responseParser;
             return this;
         }
@@ -672,7 +672,7 @@ namespace WebDav
         /// <returns>This instance of <see cref="WebDavClient" /> to support chain calls.</returns>
         internal WebDavClient SetProppatchResponseParser(IResponseParser<ProppatchResponse> responseParser)
         {
-            Guard.NotNull(responseParser, "responseParser");
+            Check.NotNull(responseParser, nameof(responseParser));
             _proppatchResponseParser = responseParser;
             return this;
         }
@@ -684,7 +684,7 @@ namespace WebDav
         /// <returns>This instance of <see cref="WebDavClient" /> to support chain calls.</returns>
         internal WebDavClient SetLockResponseParser(IResponseParser<LockResponse> responseParser)
         {
-            Guard.NotNull(responseParser, "responseParser");
+            Check.NotNull(responseParser, nameof(responseParser));
             _lockResponseParser = responseParser;
             return this;
         }

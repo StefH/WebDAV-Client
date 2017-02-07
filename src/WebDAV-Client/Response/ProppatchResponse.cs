@@ -45,7 +45,7 @@ namespace WebDav
         public ProppatchResponse(int statusCode, string description, IEnumerable<WebDavPropertyStatus> propertyStatuses)
             : base(statusCode, description)
         {
-            Guard.NotNull(propertyStatuses, "propertyStatuses");
+            Check.NotNull(propertyStatuses, nameof(propertyStatuses));
             PropertyStatuses = new List<WebDavPropertyStatus>(propertyStatuses);
         }
 

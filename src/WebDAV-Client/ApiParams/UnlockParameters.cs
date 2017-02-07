@@ -13,7 +13,7 @@ namespace WebDav
         /// </summary>
         public UnlockParameters(string lockToken)
         {
-            Guard.NotNull(lockToken, "lockToken");
+            Check.NotNull(lockToken, nameof(lockToken));
 
             LockToken = lockToken;
             CancellationToken = CancellationToken.None;

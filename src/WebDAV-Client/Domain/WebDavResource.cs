@@ -229,7 +229,7 @@ namespace WebDav
             /// </summary>
             public Builder WithProperties(IReadOnlyCollection<WebDavProperty> properties)
             {
-                Guard.NotNull(properties, "properties");
+                Check.NotNull(properties, nameof(properties));
                 _properties = properties;
                 return this;
             }
@@ -239,7 +239,7 @@ namespace WebDav
             /// </summary>
             public Builder WithPropertyStatuses(IReadOnlyCollection<WebDavPropertyStatus> propertyStatuses)
             {
-                Guard.NotNull(propertyStatuses, "propertyStatuses");
+                Check.NotNull(propertyStatuses, nameof(propertyStatuses));
                 _propertyStatuses = propertyStatuses;
                 return this;
             }

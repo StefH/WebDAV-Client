@@ -47,7 +47,7 @@ namespace WebDav
         public LockResponse(int statusCode, string description, IEnumerable<ActiveLock> activeLocks)
             : base(statusCode, description)
         {
-            Guard.NotNull(activeLocks, "activeLocks");
+            Check.NotNull(activeLocks, nameof(activeLocks));
             ActiveLocks = activeLocks.ToList();
         }
 

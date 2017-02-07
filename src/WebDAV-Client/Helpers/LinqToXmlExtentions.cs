@@ -10,7 +10,7 @@ namespace WebDav
         public static string ToStringWithDeclaration(this XDocument doc)
         {
             if (doc == null)
-                throw new ArgumentNullException("doc");
+                throw new ArgumentNullException(nameof(doc));
 
             return doc.Declaration + Environment.NewLine + doc;
         }

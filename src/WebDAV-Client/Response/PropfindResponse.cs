@@ -46,7 +46,7 @@ namespace WebDav
         public PropfindResponse(int statusCode, string description, IEnumerable<WebDavResource> resources)
             : base(statusCode, description)
         {
-            Guard.NotNull(resources, "resources");
+            Check.NotNull(resources, nameof(resources));
             Resources = resources.ToList();
         }
 

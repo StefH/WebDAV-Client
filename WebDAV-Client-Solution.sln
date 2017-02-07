@@ -7,15 +7,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F3674172-2C8
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{570FF30A-3A31-43E4-A8C3-56610FA26DFA}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7898F0E5-AE83-4BE9-B8D9-BBD92A4858DF}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solution Items", "{7898F0E5-AE83-4BE9-B8D9-BBD92A4858DF}"
 	ProjectSection(SolutionItems) = preProject
 		appveyor.yml = appveyor.yml
+		global.json = global.json
 		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "WebDAV-Client", "src\WebDAV-Client\WebDAV-Client.xproj", "{7C2D4AAD-02B1-4E29-9C10-F397482DC6FC}"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "WebDAV-Client.Tests", "test\WebDAV-Client.Tests\WebDAV-Client.Tests.xproj", "{9C2BF524-C306-4C94-BAC9-2E4ED06B8943}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{049FB370-482F-40A4-A38B-81E600E98775}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

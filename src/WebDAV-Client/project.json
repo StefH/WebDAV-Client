@@ -36,6 +36,7 @@
             "buildOptions": { "define": [ "NETSTANDARD" ] },
             "dependencies": {
                 "System.Collections": "4.3.0",
+                "System.Diagnostics.Debug": "4.3.0",
                 "System.Linq": "4.3.0",
                 "System.Runtime": "4.3.0",
                 "System.Runtime.Extensions": "4.3.0",
@@ -50,6 +51,7 @@
                 "Microsoft.CSharp": { "type": "build" },
                 "System": { "type": "build" },
                 "System.Collections": { "type": "build" },
+                "System.Diagnostics.Debug": { "type": "build" },
                 "System.IO": { "type": "build" },
                 "System.Linq": { "type": "build" },
                 "System.Net.Http": { "type": "build" },
@@ -69,6 +71,7 @@
                 "Microsoft.CSharp": { "type": "build" },
                 "System": { "type": "build" },
                 "System.Collections": { "type": "build" },
+                "System.Diagnostics.Debug": { "type": "build" },
                 "System.IO": { "type": "build" },
                 "System.Linq": { "type": "build" },
                 "System.Net.Http": { "type": "build" },

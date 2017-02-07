@@ -12,7 +12,7 @@ namespace WebDav.Infrastructure
 
         public WebDavDispatcher(HttpClient httpClient)
         {
-            Guard.NotNull(httpClient, "httpClient");
+            Check.NotNull(httpClient, nameof(httpClient));
 
             _httpClient = httpClient;
         }

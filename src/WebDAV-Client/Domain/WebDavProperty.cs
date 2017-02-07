@@ -14,7 +14,7 @@ namespace WebDav
         /// <param name="value">The property value.</param>
         public WebDavProperty(XName name, string value)
         {
-            Guard.NotNullOrEmpty((name ?? "").ToString(), "name");
+            Check.NotEmpty((name ?? "").ToString(), nameof(name));
 
             Name = name;
             Value = value;
