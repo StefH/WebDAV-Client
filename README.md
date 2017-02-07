@@ -1,6 +1,15 @@
 # WebDAV-Client
 An easy-to-use async WebDAV client for .NETStandard, Portable and .NET based on https://github.com/skazantsev/WebDavClient.
 
+[![NuGet Badge](https://buildstats.info/nuget/WebDAV-Client)](https://www.nuget.org/packages/WebDAV-Client)
+
+[![Build status](https://ci.appveyor.com/api/projects/status/0cnrtg214gonta1g?svg=true)](https://ci.appveyor.com/project/StefH/webdav-client)
+
+**Supported Frameworks**
+- NET 4.5 and up
+- NETStandard 1.1 and up
+- Portable (`.NETPortable,Version=v4.5,Profile=Profile111` and `.NETPortable,Version=v4.6,Profile=Profile151`)
+
 **Basic usage:**
 ``` csharp
 using (var webDavClient = new WebDavClient())
@@ -71,5 +80,5 @@ using (var webDavClient = new WebDavClient(clientParams))
 }
 ```
 
-##License
+##License**
 WebDAVClient is licensed under the MIT License. See [LICENSE.txt](https://github.com/stefh/WebDAV-Client/blob/master/LICENSE.txt) for more details.
