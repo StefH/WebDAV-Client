@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Net.Http;
 using System.Threading;
+using System.Threading.Tasks;
 using NSubstitute;
 using WebDav.Client.Tests.TestDoubles;
 using Xunit;
@@ -147,7 +148,7 @@ namespace WebDav.Client.Tests.WebDavClientTests
         }
 
         [Fact]
-        public async void When_IsCalledWithLockScopeExclusive_Should_AddExclusiveLockScopeToContent()
+        public async Task When_IsCalledWithLockScopeExclusive_Should_AddExclusiveLockScopeToContent()
         {
             const string expectedContent =
 @"<?xml version=""1.0"" encoding=""utf-8""?>
