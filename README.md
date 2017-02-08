@@ -8,6 +8,7 @@ An easy-to-use async WebDAV client for .NETStandard, Portable and .NET based on 
 #### Supported Frameworks
 - NET 4.5 and up
 - NETStandard 1.1 and up
+- UAP
 - Portable (`.NETPortable,Version=v4.5,Profile=Profile111` and `.NETPortable,Version=v4.6,Profile=Profile151`)
 
 #### Basic usage
