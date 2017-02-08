@@ -5,12 +5,12 @@ An easy-to-use async WebDAV client for .NETStandard, Portable and .NET based on 
 
 [![Build status](https://ci.appveyor.com/api/projects/status/0cnrtg214gonta1g?svg=true)](https://ci.appveyor.com/project/StefH/webdav-client)
 
-**Supported Frameworks**
+#### Supported Frameworks
 - NET 4.5 and up
 - NETStandard 1.1 and up
 - Portable (`.NETPortable,Version=v4.5,Profile=Profile111` and `.NETPortable,Version=v4.6,Profile=Profile151`)
 
-**Basic usage:**
+#### Basic usage
 ``` csharp
 using (var webDavClient = new WebDavClient())
 {
@@ -22,7 +22,7 @@ using (var webDavClient = new WebDavClient())
 }
 ```
 
-**Using BaseAddress:**
+#### Using BaseAddress
 ``` csharp
 var clientParams = new WebDavClientParams { BaseAddress = new Uri("http://mywebdav/") };
 using (var webDavClient = new WebDavClient(clientParams))
@@ -31,7 +31,7 @@ using (var webDavClient = new WebDavClient(clientParams))
 }
 ```
 
-**Operations with files and directories (resources & collections):**
+#### Operations with files and directories (resources & collections)
 ``` csharp
 var clientParams = new WebDavClientParams { BaseAddress = new Uri("http://mywebdav/") };
 using (var webDavClient = new WebDavClient(clientParams))
@@ -52,7 +52,7 @@ using (var webDavClient = new WebDavClient(clientParams))
 }
 ```
 
-**PROPFIND example:**
+#### PROPFIND example
 ``` csharp
 // list files & subdirectories in 'mydir'
 var result = await webDavClient.Propfind("http://mywebdav/mydir");
@@ -67,7 +67,7 @@ if (result.IsSuccessful)
 }
 ```
 
-**Authentication example:**
+#### Authentication example
 ``` csharp
 var clientParams = new WebDavClientParams
 {
@@ -80,5 +80,5 @@ using (var webDavClient = new WebDavClient(clientParams))
 }
 ```
 
-##License**
+#### License
 WebDAVClient is licensed under the MIT License. See [LICENSE.txt](https://github.com/stefh/WebDAV-Client/blob/master/LICENSE.txt) for more details.
