@@ -33,8 +33,8 @@ build_script:
 - cmd: msbuild                 .\test\WebDAV-Client.Tests.Net452\WebDAV-Client.Tests.Net452.csproj /p:Configuration=%CONFIGURATION% /p:Platform=AnyCPU
 
 # Run tests from WebDAV-Client.Tests.Net452
-test_script:
-- dotnet test -c %CONFIGURATION% --no-build .\test\WebDAV-Client.Tests.Net452
+#test_script:
+#- dotnet test -c %CONFIGURATION% --no-build .\test\WebDAV-Client.Tests.Net452
 
 artifacts:
 - path: artifacts\**\*.*
