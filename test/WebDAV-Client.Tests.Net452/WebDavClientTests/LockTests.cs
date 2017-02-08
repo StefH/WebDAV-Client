@@ -165,7 +165,7 @@ namespace WebDav.Client.Tests.WebDavClientTests
 
             await client.Lock("http://example.com", new LockParameters { LockScope = LockScope.Exclusive });
             await dispatcher.Received(1)
-                .Send(Arg.Any<Uri>(), WebDavMethod.Lock, Arg.Is(Predicates.CompareRequestContent(expectedContent)), CancellationToken.None);
+                .Send(Arg.Any<Uri>(), WebDavMethod.Lock, Arg.Is<RequestParameters>(x => x.Content.ReadAsStringAsync().Result == expectedContent), CancellationToken.None);
         }
 
         [Fact]
