@@ -50,10 +50,7 @@ namespace WebDav.Infrastructure
 
         protected virtual void DisposeManagedResources()
         {
-            if (_httpClient != null)
-            {
-                _httpClient.Dispose();
-            }
+            _httpClient?.Dispose();
         }
 
         #endregion

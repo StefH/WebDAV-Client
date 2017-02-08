@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Net.Http;
 
 namespace WebDav
 {
@@ -20,6 +21,16 @@ namespace WebDav
             Timeout = TimeSpan.FromMilliseconds(System.Threading.Timeout.Infinite);
             UseProxy = true;
         }
+
+        /// <summary>
+        /// Gets or sets the HTTP message handler. Note that this overrides some other properties in this class like:
+        /// - PreAuthenticate
+        /// - UseDefaultCredentials
+        /// - UseProxy
+        /// - Credentials
+        /// - Proxy
+        /// </summary>
+        public HttpMessageHandler HttpMessageHandler { get; set; }
 
         /// <summary>
         /// Gets or sets a value that controls whether default credentials are sent.

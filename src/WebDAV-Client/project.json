@@ -1,5 +1,5 @@
 {
-    "version": "1.0.0.0",
+    "version": "1.0.1.0",
     "title": "WebDAV-Client",
     "description": "An easy-to-use async WebDAV client for .NETStandard, Portable and .NET 4.5 and up",
     "authors": [ "Sergey Kazantsev", "Stef Heyenrath" ],
@@ -13,8 +13,8 @@
             "url": "https://github.com/stefh/WebDAV-Client"
         },
         "projectUrl": "https://github.com/stefh/WebDAV-Client",
-        "licenseUrl": "https://raw.githubusercontent.com/stefh/WebDavClient/master/LICENSE.txt",
-        "releaseNotes": "Added NETStandard 1.1 and Portable"
+        "licenseUrl": "https://raw.githubusercontent.com/StefH/WebDAV-Client/master/LICENSE",
+        "releaseNotes": "Added new constructors and added support for UAP."
     },
 
     "dependencies": {
@@ -83,6 +83,19 @@
                 "System.Threading.Tasks": { "type": "build" },
                 "System.Xml.XDocument": { "type": "build" },
                 "System.Xml.ReaderWriter": { "type": "build" }
+            }
+        },
+        "uap10.0": {
+            "buildOptions": { "define": [ "UAP" ] },
+            "dependencies": {
+                "System.Collections": "4.3.0",
+                "System.Diagnostics.Debug": "4.3.0",
+                "System.Linq": "4.3.0",
+                "System.Runtime": "4.3.0",
+                "System.Runtime.Extensions": "4.3.0",
+                "System.Text.RegularExpressions": "4.3.0",
+                "System.Net.Http": "4.3.0",
+                "System.Xml.XDocument": "4.3.0"
             }
         }
     }

@@ -30,6 +30,7 @@ namespace WebDav
         /// <summary>
         /// Initializes a new instance of the <see cref="WebDavClient"/> class.
         /// </summary>
+        [PublicAPI]
         public WebDavClient()
             : this(new WebDavClientParams())
         {
@@ -39,9 +40,22 @@ namespace WebDav
         /// Initializes a new instance of the <see cref="WebDavClient"/> class.
         /// </summary>
         /// <param name="params">The parameters of the WebDAV client.</param>
-        public WebDavClient(WebDavClientParams @params)
+        [PublicAPI]
+        public WebDavClient([NotNull] WebDavClientParams @params) : this(ConfigureHttpClient(@params))
         {
-            SetWebDavDispatcher(new WebDavDispatcher(ConfigureHttpClient(@params)));
+            Check.NotNull(@params, nameof(@params));
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WebDavClient"/> class using a HttpClient.
+        /// </summary>
+        /// <param name="httpClient">The HTTP client.</param>
+        [PublicAPI]
+        public WebDavClient([NotNull] HttpClient httpClient)
+        {
+            Check.NotNull(httpClient, nameof(httpClient));
+
+            SetWebDavDispatcher(new WebDavDispatcher(httpClient));
 
             var lockResponseParser = new LockResponseParser();
             SetPropfindResponseParser(new PropfindResponseParser(lockResponseParser));
@@ -128,13 +142,17 @@ namespace WebDav
             var headers = new RequestHeaders();
             if (!string.IsNullOrEmpty(parameters.LockToken))
                 headers.Add(new KeyValuePair<string, string>("If", IfHeaderHelper.GetHeaderValue(parameters.LockToken)));
+
             var requestBody = ProppatchRequestBuilder.BuildRequestBody(
                     parameters.PropertiesToSet,
                     parameters.PropertiesToRemove,
                     parameters.Namespaces);
+
             var requestParams = new RequestParameters { Headers = headers, Content = new StringContent(requestBody) };
+
             var response = await _dispatcher.Send(requestUri, WebDavMethod.Proppatch, requestParams, parameters.CancellationToken);
             var responseContent = await ReadContentAsString(response.Content).ConfigureAwait(false);
+
             return _proppatchResponseParser.Parse(responseContent, response.StatusCode, response.Description);
         }
 
@@ -183,8 +201,11 @@ namespace WebDav
             var headers = new RequestHeaders();
             if (!string.IsNullOrEmpty(parameters.LockToken))
                 headers.Add(new KeyValuePair<string, string>("If", IfHeaderHelper.GetHeaderValue(parameters.LockToken)));
+
             var requestParams = new RequestParameters { Headers = headers };
+
             var response = await _dispatcher.Send(requestUri, WebDavMethod.Mkcol, requestParams, parameters.CancellationToken);
+
             return new WebDavResponse(response.StatusCode, response.Description);
         }
 
@@ -280,9 +301,13 @@ namespace WebDav
             {
                 new KeyValuePair<string, string>("Translate", translate ? "t" : "f")
             };
+
             var requestParams = new RequestParameters { Headers = headers };
+
             var response = await _dispatcher.Send(requestUri, HttpMethod.Get, requestParams, cancellationToken);
+
             var stream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
+
             return new WebDavStreamResponse(response.StatusCode, response.Description, stream);
         }
 
@@ -331,8 +356,11 @@ namespace WebDav
             var headers = new RequestHeaders();
             if (!string.IsNullOrEmpty(parameters.LockToken))
                 headers.Add(new KeyValuePair<string, string>("If", IfHeaderHelper.GetHeaderValue(parameters.LockToken)));
+
             var requestParams = new RequestParameters { Headers = headers };
+
             var response = await _dispatcher.Send(requestUri, HttpMethod.Delete, requestParams, parameters.CancellationToken);
+
             return new WebDavResponse(response.StatusCode, response.Description);
         }
 
@@ -410,8 +438,11 @@ namespace WebDav
             var headers = new RequestHeaders();
             if (!string.IsNullOrEmpty(parameters.LockToken))
                 headers.Add(new KeyValuePair<string, string>("If", IfHeaderHelper.GetHeaderValue(parameters.LockToken)));
+
             var requestParams = new RequestParameters { Headers = headers, Content = new StreamContent(stream), ContentType = parameters.ContentType };
+
             var response = await _dispatcher.Send(requestUri, HttpMethod.Put, requestParams, parameters.CancellationToken);
+
             return new WebDavResponse(response.StatusCode, response.Description);
         }
 
@@ -469,11 +500,14 @@ namespace WebDav
                 new KeyValuePair<string, string>("Depth", DepthHeaderHelper.GetValueForCopy(applyTo)),
                 new KeyValuePair<string, string>("Overwrite", parameters.Overwrite ? "T" : "F")
             };
+
             if (!string.IsNullOrEmpty(parameters.DestLockToken))
                 headers.Add(new KeyValuePair<string, string>("If", IfHeaderHelper.GetHeaderValue(parameters.DestLockToken)));
 
             var requestParams = new RequestParameters { Headers = headers };
+
             var response = await _dispatcher.Send(sourceUri, WebDavMethod.Copy, requestParams, parameters.CancellationToken);
+
             return new WebDavResponse(response.StatusCode, response.Description);
         }
 
@@ -529,13 +563,17 @@ namespace WebDav
                 new KeyValuePair<string, string>("Destination", GetAbsoluteUri(destUri).ToString()),
                 new KeyValuePair<string, string>("Overwrite", parameters.Overwrite ? "T" : "F")
             };
+
             if (!string.IsNullOrEmpty(parameters.SourceLockToken))
                 headers.Add(new KeyValuePair<string, string>("If", IfHeaderHelper.GetHeaderValue(parameters.SourceLockToken)));
+
             if (!string.IsNullOrEmpty(parameters.DestLockToken))
                 headers.Add(new KeyValuePair<string, string>("If", IfHeaderHelper.GetHeaderValue(parameters.DestLockToken)));
 
             var requestParams = new RequestParameters { Headers = headers };
+
             var response = await _dispatcher.Send(sourceUri, WebDavMethod.Move, requestParams, parameters.CancellationToken);
+
             return new WebDavResponse(response.StatusCode, response.Description);
         }
 
@@ -584,16 +622,21 @@ namespace WebDav
             var headers = new RequestHeaders();
             if (parameters.ApplyTo.HasValue)
                 headers.Add(new KeyValuePair<string, string>("Depth", DepthHeaderHelper.GetValueForLock(parameters.ApplyTo.Value)));
+
             if (parameters.Timeout.HasValue)
                 headers.Add(new KeyValuePair<string, string>("Timeout", string.Format("Second-{0}", parameters.Timeout.Value.TotalSeconds)));
 
             var requestBody = LockRequestBuilder.BuildRequestBody(parameters);
+
             var requestParams = new RequestParameters { Headers = headers, Content = new StringContent(requestBody) };
+
             var response = await _dispatcher.Send(requestUri, WebDavMethod.Lock, requestParams, parameters.CancellationToken);
+
             if (!response.IsSuccessful)
                 return new LockResponse(response.StatusCode, response.Description);
 
             var responseContent = await ReadContentAsString(response.Content).ConfigureAwait(false);
+
             return _lockResponseParser.Parse(responseContent, response.StatusCode, response.Description);
         }
 
@@ -647,7 +690,9 @@ namespace WebDav
             };
 
             var requestParams = new RequestParameters { Headers = headers };
+
             var response = await _dispatcher.Send(requestUri, WebDavMethod.Unlock, requestParams, parameters.CancellationToken);
+
             return new WebDavResponse(response.StatusCode, response.Description);
         }
 
@@ -701,24 +746,31 @@ namespace WebDav
 
         private static HttpClient ConfigureHttpClient(WebDavClientParams @params)
         {
-            var httpHandler = new HttpClientHandler
+            HttpMessageHandler httpMessageHandler = @params.HttpMessageHandler;
+            if (httpMessageHandler == null)
             {
-                AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip,
-                PreAuthenticate = @params.PreAuthenticate,
-                UseDefaultCredentials = @params.UseDefaultCredentials,
-                UseProxy = @params.UseProxy
-            };
+                var httpHandler = new HttpClientHandler
+                {
+                    AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip,
+                    PreAuthenticate = @params.PreAuthenticate,
+                    UseDefaultCredentials = @params.UseDefaultCredentials,
+                    UseProxy = @params.UseProxy
+                };
 
-            if (@params.Credentials != null)
-            {
-                httpHandler.Credentials = @params.Credentials;
-            }
-            if (@params.Proxy != null)
-            {
-                httpHandler.Proxy = @params.Proxy;
+                if (@params.Credentials != null)
+                {
+                    httpHandler.Credentials = @params.Credentials;
+                }
+
+                if (@params.Proxy != null)
+                {
+                    httpHandler.Proxy = @params.Proxy;
+                }
+
+                httpMessageHandler = httpHandler;
             }
 
-            var httpClient = new HttpClient(httpHandler, true)
+            var httpClient = new HttpClient(httpMessageHandler, true)
             {
                 BaseAddress = @params.BaseAddress,
                 Timeout = @params.Timeout
@@ -728,6 +780,7 @@ namespace WebDav
             {
                 httpClient.DefaultRequestHeaders.Add(header.Key, header.Value);
             }
+
             return httpClient;
         }
 
@@ -738,14 +791,12 @@ namespace WebDav
 
         private static Exception CreateInvalidUriException()
         {
-            return
-                new InvalidOperationException(
-                    "An invalid request URI was provided. The request URI must either be an absolute URI or BaseAddress must be set.");
+            return new InvalidOperationException("An invalid request URI was provided. The request URI must either be an absolute URI or BaseAddress must be set.");
         }
 
         private static Encoding GetResponseEncoding(HttpContent content, Encoding fallbackEncoding)
         {
-            if (content.Headers.ContentType == null || content.Headers.ContentType.CharSet == null)
+            if (content.Headers.ContentType?.CharSet == null)
                 return fallbackEncoding;
 
             try
@@ -783,6 +834,7 @@ namespace WebDav
 
             if (_dispatcher.BaseAddress == null)
                 throw CreateInvalidUriException();
+
             return new Uri(_dispatcher.BaseAddress, uri);
         }
 
