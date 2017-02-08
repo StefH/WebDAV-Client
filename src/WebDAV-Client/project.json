@@ -32,6 +32,19 @@
                 "System.Xml.Linq": { "type": "build" }
             }
         },
+        "net46": {
+            "dependencies": {
+                "System.Net.Http": "4.3.0"
+            },
+            "frameworkAssemblies": {
+                "System.IO": { "type": "build" },
+                "System.Net.Primitives": { "type": "build" },
+                "System.Runtime": { "type": "build" },
+                "System.Threading.Tasks": { "type": "build" },
+                "System.Xml": { "type": "build" },
+                "System.Xml.Linq": { "type": "build" }
+            }
+        },
         "netstandard1.1": {
             "buildOptions": { "define": [ "NETSTANDARD" ] },
             "dependencies": {

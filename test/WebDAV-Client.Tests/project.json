@@ -8,6 +8,15 @@
         "xunit": "2.2.0-beta5-build3474"
     },
 
+    "buildOptions": {
+        "compile": {
+            "include": [
+                "../WebDAV-Client.Tests.Net452/*/*.cs",
+                "../WebDAV-Client.Tests.Net452/*.cs"
+            ]
+        }
+    },
+
     "frameworks": {
         "net452": {
         }
