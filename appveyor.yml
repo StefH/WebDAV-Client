@@ -11,6 +11,9 @@ platform: Any CPU
 init:
 - ps: $Env:LABEL = "CI" + $Env:APPVEYOR_BUILD_NUMBER.PadLeft(5, "0")
 
+# https://github.com/nsubstitute/NSubstitute/issues/281
+- git config --global core.autocrlf true
+
 install:
 - ps: Start-FileDownload 'https://download.microsoft.com/download/1/4/1/141760B3-805B-4583-B17C-8C5BC5A876AB/Installers/dotnet-dev-win-x64.1.0.0-preview2-1-003177.exe'
 - cmd: dotnet-dev-win-x64.1.0.0-preview2-1-003177.exe /quiet
