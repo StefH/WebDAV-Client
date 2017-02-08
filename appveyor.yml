@@ -19,15 +19,20 @@ environment:
   PATH: $(PATH);$(PROGRAMFILES)\dotnet\
 
 build_script:
+# Restore and build WebDAV-Client
 - appveyor-retry dotnet restore .\src\WebDAV-Client -v Minimal
 - dotnet build .\src\WebDAV-Client\project.json -c %CONFIGURATION%
 - dotnet pack -c %CONFIGURATION% --no-build --version-suffix %LABEL% -o .\artifacts .\src\WebDAV-Client\project.json
 
+# Restore and build WebDAV-Client.Tests
 - appveyor-retry dotnet restore .\test\WebDAV-Client.Tests -v Minimal
 - dotnet build .\test\WebDAV-Client.Tests\project.json -c %CONFIGURATION%
 
+# Restore and build WebDAV-Client.Tests.Net452
 - appveyor-retry nuget restore .\test\WebDAV-Client.Tests.Net452\WebDAV-Client.Tests.Net452.csproj -PackagesDirectory packages
+- cmd: msbuild                 .\test\WebDAV-Client.Tests.Net452\WebDAV-Client.Tests.Net452.csproj /p:Configuration=%CONFIGURATION% /p:Platform=AnyCPU
 
+# Run tests from WebDAV-Client.Tests.Net452
 test_script:
 - dotnet test -c %CONFIGURATION% --no-build .\test\WebDAV-Client.Tests.Net452
 
