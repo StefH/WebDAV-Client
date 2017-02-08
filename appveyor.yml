@@ -26,8 +26,10 @@ build_script:
 - appveyor-retry dotnet restore .\test\WebDAV-Client.Tests -v Minimal
 - dotnet build .\test\WebDAV-Client.Tests\project.json -c %CONFIGURATION%
 
+- appveyor-retry nuget restore .\test\WebDAV-Client.Tests.Net452\WebDAV-Client.Tests.Net452.csproj -PackagesDirectory packages
+
 test_script:
-- dotnet test -c %CONFIGURATION% --no-build .\test\WebDAV-Client.Tests
+- dotnet test -c %CONFIGURATION% --no-build .\test\WebDAV-Client.Tests.Net452
 
 artifacts:
 - path: artifacts\**\*.*

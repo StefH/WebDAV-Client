@@ -20,6 +20,11 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "WebDAV-Client.Tests", "test
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{049FB370-482F-40A4-A38B-81E600E98775}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDAV-Client.Tests.Net452", "test\WebDAV-Client.Tests.Net452\WebDAV-Client.Tests.Net452.csproj", "{DF7DE4B0-00DD-4B96-A6EF-7C7C83CE689D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7C2D4AAD-02B1-4E29-9C10-F397482DC6FC} = {7C2D4AAD-02B1-4E29-9C10-F397482DC6FC}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,6 +39,10 @@ Global
 		{9C2BF524-C306-4C94-BAC9-2E4ED06B8943}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C2BF524-C306-4C94-BAC9-2E4ED06B8943}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C2BF524-C306-4C94-BAC9-2E4ED06B8943}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF7DE4B0-00DD-4B96-A6EF-7C7C83CE689D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF7DE4B0-00DD-4B96-A6EF-7C7C83CE689D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF7DE4B0-00DD-4B96-A6EF-7C7C83CE689D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF7DE4B0-00DD-4B96-A6EF-7C7C83CE689D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -41,5 +50,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{7C2D4AAD-02B1-4E29-9C10-F397482DC6FC} = {F3674172-2C87-4529-8B3B-D4047ED5F1C3}
 		{9C2BF524-C306-4C94-BAC9-2E4ED06B8943} = {570FF30A-3A31-43E4-A8C3-56610FA26DFA}
+		{DF7DE4B0-00DD-4B96-A6EF-7C7C83CE689D} = {570FF30A-3A31-43E4-A8C3-56610FA26DFA}
 	EndGlobalSection
 EndGlobal
