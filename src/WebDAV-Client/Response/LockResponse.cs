@@ -1,6 +1,7 @@
 ﻿
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 
 namespace WebDav
 {
@@ -44,7 +45,7 @@ namespace WebDav
         /// <param name="statusCode">The status code of the response.</param>
         /// <param name="description">The description of the response.</param>
         /// <param name="activeLocks">The active locks of the resource.</param>
-        public LockResponse(int statusCode, string description, IEnumerable<ActiveLock> activeLocks)
+        public LockResponse(int statusCode, string description, [NotNull] IEnumerable<ActiveLock> activeLocks)
             : base(statusCode, description)
         {
             Check.NotNull(activeLocks, nameof(activeLocks));

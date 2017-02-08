@@ -53,10 +53,7 @@ namespace WebDav
         /// <value>
         /// <c>true</c> if the operation was successfull; otherwise, <c>false</c>.
         /// </value>
-        public virtual bool IsSuccessful
-        {
-            get { return StatusCode >= 200 && StatusCode <= 299; }
-        }
+        public virtual bool IsSuccessful => StatusCode >= 200 && StatusCode <= 299;
 
         public override string ToString()
         {

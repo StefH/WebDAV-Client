@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 
 namespace WebDav.Infrastructure
 {
@@ -10,17 +11,14 @@ namespace WebDav.Infrastructure
     {
         private readonly HttpClient _httpClient;
 
-        public WebDavDispatcher(HttpClient httpClient)
+        public WebDavDispatcher([NotNull] HttpClient httpClient)
         {
             Check.NotNull(httpClient, nameof(httpClient));
 
             _httpClient = httpClient;
         }
 
-        public Uri BaseAddress
-        {
-            get { return _httpClient.BaseAddress; }
-        }
+        public Uri BaseAddress => _httpClient.BaseAddress;
 
         public async Task<HttpResponse> Send(Uri requestUri, HttpMethod method, RequestParameters requestParams, CancellationToken cancellationToken)
         {
@@ -30,6 +28,7 @@ namespace WebDav.Infrastructure
                 {
                     request.Headers.Add(header.Key, header.Value);
                 }
+
                 if (requestParams.Content != null)
                 {
                     request.Content = requestParams.Content;

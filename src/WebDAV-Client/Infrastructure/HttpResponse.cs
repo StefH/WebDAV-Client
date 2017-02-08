@@ -22,9 +22,6 @@ namespace WebDav.Infrastructure
 
         public string Description { get; private set; }
 
-        public bool IsSuccessful
-        {
-            get { return StatusCode >= 200 && StatusCode <= 299; }
-        }
+        public bool IsSuccessful => StatusCode >= 200 && StatusCode <= 299;
     }
 }

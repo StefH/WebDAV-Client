@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 
 namespace WebDav
 {
@@ -227,7 +228,7 @@ namespace WebDav
             /// <summary>
             /// Sets the Properties parameter of an instance of the <see cref="WebDavResource"/> class.
             /// </summary>
-            public Builder WithProperties(IReadOnlyCollection<WebDavProperty> properties)
+            public Builder WithProperties([NotNull] IReadOnlyCollection<WebDavProperty> properties)
             {
                 Check.NotNull(properties, nameof(properties));
                 _properties = properties;
@@ -237,7 +238,7 @@ namespace WebDav
             /// <summary>
             /// Sets the PropertyStatuses parameter of an instance of the <see cref="WebDavResource"/> class.
             /// </summary>
-            public Builder WithPropertyStatuses(IReadOnlyCollection<WebDavPropertyStatus> propertyStatuses)
+            public Builder WithPropertyStatuses([NotNull] IReadOnlyCollection<WebDavPropertyStatus> propertyStatuses)
             {
                 Check.NotNull(propertyStatuses, nameof(propertyStatuses));
                 _propertyStatuses = propertyStatuses;

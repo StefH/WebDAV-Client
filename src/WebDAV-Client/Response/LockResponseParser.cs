@@ -9,7 +9,7 @@ namespace WebDav.Response
     {
         public LockResponse Parse(string response, int statusCode, string description)
         {
-            var xresponse = XDocumentExt.TryParse(response);
+            var xresponse = XDocumentExtensions.TryParse(response);
             if (xresponse == null || xresponse.Root == null)
                 return new LockResponse(statusCode, description);
 

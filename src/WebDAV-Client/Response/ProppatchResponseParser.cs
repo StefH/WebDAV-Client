@@ -10,7 +10,7 @@ namespace WebDav.Response
             if (string.IsNullOrEmpty(response))
                 return new ProppatchResponse(statusCode, description);
 
-            var xresponse = XDocumentExt.TryParse(response);
+            var xresponse = XDocumentExtensions.TryParse(response);
             if (xresponse == null ||  xresponse.Root == null)
                 return new ProppatchResponse(statusCode, description);
 

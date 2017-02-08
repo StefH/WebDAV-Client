@@ -1,4 +1,6 @@
-﻿namespace WebDav
+﻿using JetBrains.Annotations;
+
+namespace WebDav
 {
     /// <summary>
     /// Represents a lock owner identified by principal name.
@@ -9,7 +11,7 @@
         /// Initializes a new instance of the <see cref="PrincipalLockOwner"/> class.
         /// </summary>
         /// <param name="principalName">Name of the principal.</param>
-        public PrincipalLockOwner(string principalName)
+        public PrincipalLockOwner([NotNull] string principalName)
         {
             Check.NotNull(principalName, nameof(principalName));
             Value = principalName;

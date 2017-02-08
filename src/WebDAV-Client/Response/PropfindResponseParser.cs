@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Xml.Linq;
+using JetBrains.Annotations;
 
 namespace WebDav.Response
 {
@@ -10,7 +11,7 @@ namespace WebDav.Response
     {
         private readonly LockResponseParser _lockResponseParser;
 
-        public PropfindResponseParser(LockResponseParser lockResponseParser)
+        public PropfindResponseParser([NotNull] LockResponseParser lockResponseParser)
         {
             Check.NotNull(lockResponseParser, nameof(lockResponseParser));
             _lockResponseParser = lockResponseParser;
@@ -21,7 +22,7 @@ namespace WebDav.Response
             if (string.IsNullOrEmpty(response))
                 return new PropfindResponse(statusCode, description);
 
-            var xresponse = XDocumentExt.TryParse(response);
+            var xresponse = XDocumentExtensions.TryParse(response);
             if (xresponse == null || xresponse.Root == null)
                 return new PropfindResponse(statusCode, description);
 

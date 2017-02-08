@@ -5,7 +5,7 @@ using System.Xml.Linq;
 
 namespace WebDav
 {
-    internal static class LinqToXmlExtentions
+    internal static class LinqToXmlExtensions
     {
         public static string ToStringWithDeclaration(this XDocument doc)
         {

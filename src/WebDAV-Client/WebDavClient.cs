@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 using WebDav.Infrastructure;
 using WebDav.Request;
 using WebDav.Response;
@@ -85,9 +86,10 @@ namespace WebDav
         /// <param name="requestUri">The <see cref="System.Uri"/> to request.</param>
         /// <param name="parameters">Parameters of the PROPFIND operation.</param>
         /// <returns>An instance of <see cref="PropfindResponse" /></returns>
-        public async Task<PropfindResponse> Propfind(Uri requestUri, PropfindParameters parameters)
+        public async Task<PropfindResponse> Propfind([NotNull] Uri requestUri, [NotNull] PropfindParameters parameters)
         {
             Check.NotNull(requestUri, nameof(requestUri));
+            Check.NotNull(parameters, nameof(parameters));
 
             var applyTo = parameters.ApplyTo ?? ApplyTo.Propfind.ResourceAndChildren;
             var headers = new RequestHeaders
@@ -118,9 +120,10 @@ namespace WebDav
         /// <param name="requestUri">The <see cref="System.Uri"/> to request.</param>
         /// <param name="parameters">Parameters of the PROPPATCH operation.</param>
         /// <returns>An instance of <see cref="ProppatchResponse" /></returns>
-        public async Task<ProppatchResponse> Proppatch(Uri requestUri, ProppatchParameters parameters)
+        public async Task<ProppatchResponse> Proppatch([NotNull] Uri requestUri, [NotNull] ProppatchParameters parameters)
         {
             Check.NotNull(requestUri, nameof(requestUri));
+            Check.NotNull(parameters, nameof(parameters));
 
             var headers = new RequestHeaders();
             if (!string.IsNullOrEmpty(parameters.LockToken))
@@ -172,9 +175,10 @@ namespace WebDav
         /// <param name="requestUri">The <see cref="System.Uri"/> to request.</param>
         /// <param name="parameters">Parameters of the MKCOL operation.</param>
         /// <returns>An instance of <see cref="WebDavResponse" /></returns>
-        public async Task<WebDavResponse> Mkcol(Uri requestUri, MkColParameters parameters)
+        public async Task<WebDavResponse> Mkcol([NotNull] Uri requestUri, [NotNull] MkColParameters parameters)
         {
             Check.NotNull(requestUri, nameof(requestUri));
+            Check.NotNull(parameters, nameof(parameters));
 
             var headers = new RequestHeaders();
             if (!string.IsNullOrEmpty(parameters.LockToken))
@@ -268,7 +272,7 @@ namespace WebDav
             return GetFile(requestUri, true, parameters.CancellationToken);
         }
 
-        internal virtual async Task<WebDavStreamResponse> GetFile(Uri requestUri, bool translate, CancellationToken cancellationToken)
+        internal virtual async Task<WebDavStreamResponse> GetFile([NotNull] Uri requestUri, bool translate, CancellationToken cancellationToken)
         {
             Check.NotNull(requestUri, nameof(requestUri));
 
@@ -319,9 +323,10 @@ namespace WebDav
         /// <param name="requestUri">The <see cref="System.Uri"/> to request.</param>
         /// <param name="parameters">Parameters of the DELETE operation.</param>
         /// <returns>An instance of <see cref="WebDavResponse" /></returns>
-        public async Task<WebDavResponse> Delete(Uri requestUri, DeleteParameters parameters)
+        public async Task<WebDavResponse> Delete([NotNull] Uri requestUri, [NotNull] DeleteParameters parameters)
         {
             Check.NotNull(requestUri, nameof(requestUri));
+            Check.NotNull(parameters, nameof(parameters));
 
             var headers = new RequestHeaders();
             if (!string.IsNullOrEmpty(parameters.LockToken))
@@ -396,10 +401,11 @@ namespace WebDav
         /// <param name="stream">The stream of content of the resource.</param>
         /// <param name="parameters">Parameters of the PUT operation.</param>
         /// <returns>An instance of <see cref="WebDavResponse" /></returns>
-        public async Task<WebDavResponse> PutFile(Uri requestUri, Stream stream, PutFileParameters parameters)
+        public async Task<WebDavResponse> PutFile([NotNull] Uri requestUri, [NotNull] Stream stream, [NotNull] PutFileParameters parameters)
         {
             Check.NotNull(requestUri, nameof(requestUri));
             Check.NotNull(stream, nameof(stream));
+            Check.NotNull(parameters, nameof(parameters));
 
             var headers = new RequestHeaders();
             if (!string.IsNullOrEmpty(parameters.LockToken))
@@ -450,10 +456,11 @@ namespace WebDav
         /// <param name="destUri">The destination <see cref="T:System.Uri"/>.</param>
         /// <param name="parameters">Parameters of the COPY operation.</param>
         /// <returns>An instance of <see cref="WebDavResponse" /></returns>
-        public async Task<WebDavResponse> Copy(Uri sourceUri, Uri destUri, CopyParameters parameters)
+        public async Task<WebDavResponse> Copy([NotNull] Uri sourceUri, [NotNull] Uri destUri, [NotNull] CopyParameters parameters)
         {
             Check.NotNull(sourceUri, nameof(sourceUri));
             Check.NotNull(destUri, nameof(destUri));
+            Check.NotNull(parameters, nameof(parameters));
 
             var applyTo = parameters.ApplyTo ?? ApplyTo.Copy.ResourceAndAncestors;
             var headers = new RequestHeaders
@@ -511,10 +518,11 @@ namespace WebDav
         /// <param name="destUri">The destination <see cref="T:System.Uri"/>.</param>
         /// <param name="parameters">Parameters of the MOVE operation.</param>
         /// <returns>An instance of <see cref="WebDavResponse" /></returns>
-        public async Task<WebDavResponse> Move(Uri sourceUri, Uri destUri, MoveParameters parameters)
+        public async Task<WebDavResponse> Move([NotNull] Uri sourceUri, [NotNull] Uri destUri, [NotNull] MoveParameters parameters)
         {
             Check.NotNull(sourceUri, nameof(sourceUri));
             Check.NotNull(destUri, nameof(destUri));
+            Check.NotNull(parameters, nameof(parameters));
 
             var headers = new RequestHeaders
             {
@@ -568,9 +576,10 @@ namespace WebDav
         /// <param name="requestUri">The <see cref="System.Uri"/> to request.</param>
         /// <param name="parameters">Parameters of the LOCK operation.</param>
         /// <returns>An instance of <see cref="LockResponse" /></returns>
-        public async Task<LockResponse> Lock(Uri requestUri, LockParameters parameters)
+        public async Task<LockResponse> Lock([NotNull] Uri requestUri, [NotNull] LockParameters parameters)
         {
             Check.NotNull(requestUri, nameof(requestUri));
+            Check.NotNull(parameters, nameof(parameters));
 
             var headers = new RequestHeaders();
             if (parameters.ApplyTo.HasValue)
@@ -627,9 +636,10 @@ namespace WebDav
         /// <param name="requestUri">The <see cref="System.Uri"/> to request.</param>
         /// <param name="parameters">Parameters of the UNLOCK operation.</param>
         /// <returns>An instance of <see cref="WebDavResponse" /></returns>
-        public async Task<WebDavResponse> Unlock(Uri requestUri, UnlockParameters parameters)
+        public async Task<WebDavResponse> Unlock([NotNull] Uri requestUri, [NotNull] UnlockParameters parameters)
         {
             Check.NotNull(requestUri, nameof(requestUri));
+            Check.NotNull(parameters, nameof(parameters));
 
             var headers = new RequestHeaders
             {
@@ -646,9 +656,9 @@ namespace WebDav
         /// </summary>
         /// <param name="dispatcher">The dispatcher of WebDAV http requests.</param>
         /// <returns>This instance of <see cref="WebDavClient" /> to support chain calls.</returns>
-        internal WebDavClient SetWebDavDispatcher(IWebDavDispatcher dispatcher)
+        internal WebDavClient SetWebDavDispatcher([NotNull] IWebDavDispatcher dispatcher)
         {
-            Check.NotNull(dispatcher, "dispather");
+            Check.NotNull(dispatcher, nameof(dispatcher));
             _dispatcher = dispatcher;
             return this;
         }
@@ -658,7 +668,7 @@ namespace WebDav
         /// </summary>
         /// <param name="responseParser">The parser of WebDAV PROPFIND responses.</param>
         /// <returns>This instance of <see cref="WebDavClient" /> to support chain calls.</returns>
-        internal WebDavClient SetPropfindResponseParser(IResponseParser<PropfindResponse> responseParser)
+        internal WebDavClient SetPropfindResponseParser([NotNull] IResponseParser<PropfindResponse> responseParser)
         {
             Check.NotNull(responseParser, nameof(responseParser));
             _propfindResponseParser = responseParser;
@@ -670,7 +680,7 @@ namespace WebDav
         /// </summary>
         /// <param name="responseParser">The parser of WebDAV PROPPATCH responses.</param>
         /// <returns>This instance of <see cref="WebDavClient" /> to support chain calls.</returns>
-        internal WebDavClient SetProppatchResponseParser(IResponseParser<ProppatchResponse> responseParser)
+        internal WebDavClient SetProppatchResponseParser([NotNull] IResponseParser<ProppatchResponse> responseParser)
         {
             Check.NotNull(responseParser, nameof(responseParser));
             _proppatchResponseParser = responseParser;
@@ -682,7 +692,7 @@ namespace WebDav
         /// </summary>
         /// <param name="responseParser">The parser of WebDAV LOCK responses.</param>
         /// <returns>This instance of <see cref="WebDavClient" /> to support chain calls.</returns>
-        internal WebDavClient SetLockResponseParser(IResponseParser<LockResponse> responseParser)
+        internal WebDavClient SetLockResponseParser([NotNull] IResponseParser<LockResponse> responseParser)
         {
             Check.NotNull(responseParser, nameof(responseParser));
             _lockResponseParser = responseParser;
@@ -776,7 +786,7 @@ namespace WebDav
             return new Uri(_dispatcher.BaseAddress, uri);
         }
 
-#region IDisposable
+        #region IDisposable
 
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting managed/unmanaged resources.
@@ -799,6 +809,6 @@ namespace WebDav
             }
         }
 
-#endregion
+        #endregion
     }
 }
