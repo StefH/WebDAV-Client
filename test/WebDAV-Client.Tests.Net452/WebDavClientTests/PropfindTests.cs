@@ -1,4 +1,4 @@
-﻿using NSubstitute;
+using NSubstitute;
 using System;
 using System.Net.Http;
 using System.Threading;
