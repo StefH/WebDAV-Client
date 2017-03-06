@@ -1,6 +1,7 @@
 ﻿using System;
 using NSubstitute;
 using System.Net.Http;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using WebDav.Infrastructure;
@@ -17,7 +18,7 @@ namespace WebDav.Client.Tests.Infrastructure
             {
                 var response = await dispatcher.Send(new Uri("http://example.com"), HttpMethod.Get, new RequestParameters(), CancellationToken.None);
 
-                Assert.IsType(typeof (HttpResponse), response);
+                Assert.IsType(typeof(HttpResponse), response);
                 Assert.Equal(200, response.StatusCode);
             }
         }
@@ -27,7 +28,7 @@ namespace WebDav.Client.Tests.Infrastructure
         {
             using (var dispatcher = new WebDavDispatcher(ConfigureHttpClient()))
             {
-                var requestParams = new RequestParameters {Content = new StringContent("content")};
+                var requestParams = new RequestParameters { Content = new StringContent("content", Encoding.UTF8, "application/xml") };
                 var response = await dispatcher.Send(new Uri("http://example.com"), HttpMethod.Put, requestParams, CancellationToken.None);
 
                 Assert.IsType(typeof(HttpResponse), response);
@@ -80,7 +81,7 @@ namespace WebDav.Client.Tests.Infrastructure
                 .Returns(x =>
                 {
                     x.Arg<CancellationToken>().ThrowIfCancellationRequested();
-                    return Task.FromResult(new HttpResponseMessage { Content = new StringContent(responseContent) });
+                    return Task.FromResult(new HttpResponseMessage { Content = new StringContent(responseContent, Encoding.UTF8, "application/xml") });
                 });
             return httpClient;
         }

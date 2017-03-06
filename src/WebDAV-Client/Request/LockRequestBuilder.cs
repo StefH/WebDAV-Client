@@ -10,11 +10,12 @@ namespace WebDav.Request
         {
             var doc = new XDocument(new XDeclaration("1.0", "utf-8", null));
             var lockinfo = new XElement("{DAV:}lockinfo", new XAttribute(XNamespace.Xmlns + "D", "DAV:"));
+
             lockinfo.Add(GetLockScope(lockParams.LockScope));
             lockinfo.Add(GetLockType());
+
             if (lockParams.Owner != null)
                 lockinfo.Add(GetLockOwner(lockParams.Owner));
-
 
             doc.Add(lockinfo);
             return doc.ToStringWithDeclaration();
@@ -47,6 +48,7 @@ namespace WebDav.Request
         private static XElement GetLockOwner(LockOwner lockOwner)
         {
             var owner = new XElement("{DAV:}owner");
+
             if (lockOwner is PrincipalLockOwner)
             {
                 owner.SetValue(lockOwner.Value);
@@ -61,6 +63,7 @@ namespace WebDav.Request
             {
                 throw new ArgumentException("Lock owner is invalid.", nameof(lockOwner));
             }
+
             return owner;
         }
     }

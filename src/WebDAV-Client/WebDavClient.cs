@@ -19,6 +19,10 @@ namespace WebDav
     /// </summary>
     public class WebDavClient : IDisposable
     {
+        private const string MediaTypeXml = "application/xml";
+        private static readonly Encoding DefaultEncoding = Encoding.UTF8;
+        private static readonly Encoding FallbackEncoding = Encoding.UTF8;
+
         private IWebDavDispatcher _dispatcher;
 
         private IResponseParser<PropfindResponse> _propfindResponseParser;
@@ -110,8 +114,8 @@ namespace WebDav
             {
                 new KeyValuePair<string, string>("Depth", DepthHeaderHelper.GetValueForPropfind(applyTo))
             };
-            var requestBody = PropfindRequestBuilder.BuildRequestBody(parameters.CustomProperties, parameters.Namespaces);
-            var requestParams = new RequestParameters { Headers = headers, Content = new StringContent(requestBody) };
+            string requestBody = PropfindRequestBuilder.BuildRequestBody(parameters.CustomProperties, parameters.Namespaces);
+            var requestParams = new RequestParameters { Headers = headers, Content = new StringContent(requestBody, DefaultEncoding, MediaTypeXml) };
             var response = await _dispatcher.Send(requestUri, WebDavMethod.Propfind, requestParams, parameters.CancellationToken);
             var responseContent = await ReadContentAsString(response.Content).ConfigureAwait(false);
             return _propfindResponseParser.Parse(responseContent, response.StatusCode, response.Description);
@@ -143,12 +147,12 @@ namespace WebDav
             if (!string.IsNullOrEmpty(parameters.LockToken))
                 headers.Add(new KeyValuePair<string, string>("If", IfHeaderHelper.GetHeaderValue(parameters.LockToken)));
 
-            var requestBody = ProppatchRequestBuilder.BuildRequestBody(
+            string requestBody = ProppatchRequestBuilder.BuildRequestBody(
                     parameters.PropertiesToSet,
                     parameters.PropertiesToRemove,
                     parameters.Namespaces);
 
-            var requestParams = new RequestParameters { Headers = headers, Content = new StringContent(requestBody) };
+            var requestParams = new RequestParameters { Headers = headers, Content = new StringContent(requestBody, DefaultEncoding, MediaTypeXml) };
 
             var response = await _dispatcher.Send(requestUri, WebDavMethod.Proppatch, requestParams, parameters.CancellationToken);
             var responseContent = await ReadContentAsString(response.Content).ConfigureAwait(false);
@@ -624,11 +628,11 @@ namespace WebDav
                 headers.Add(new KeyValuePair<string, string>("Depth", DepthHeaderHelper.GetValueForLock(parameters.ApplyTo.Value)));
 
             if (parameters.Timeout.HasValue)
-                headers.Add(new KeyValuePair<string, string>("Timeout", string.Format("Second-{0}", parameters.Timeout.Value.TotalSeconds)));
+                headers.Add(new KeyValuePair<string, string>("Timeout", $"Second-{parameters.Timeout.Value.TotalSeconds}"));
 
-            var requestBody = LockRequestBuilder.BuildRequestBody(parameters);
+            string requestBody = LockRequestBuilder.BuildRequestBody(parameters);
 
-            var requestParams = new RequestParameters { Headers = headers, Content = new StringContent(requestBody) };
+            var requestParams = new RequestParameters { Headers = headers, Content = new StringContent(requestBody, DefaultEncoding, MediaTypeXml) };
 
             var response = await _dispatcher.Send(requestUri, WebDavMethod.Lock, requestParams, parameters.CancellationToken);
 
@@ -686,7 +690,7 @@ namespace WebDav
 
             var headers = new RequestHeaders
             {
-                new KeyValuePair<string, string>("Lock-Token", string.Format("<{0}>", parameters.LockToken))
+                new KeyValuePair<string, string>("Lock-Token", $"<{parameters.LockToken}>")
             };
 
             var requestParams = new RequestParameters { Headers = headers };
@@ -794,10 +798,10 @@ namespace WebDav
             return new InvalidOperationException("An invalid request URI was provided. The request URI must either be an absolute URI or BaseAddress must be set.");
         }
 
-        private static Encoding GetResponseEncoding(HttpContent content, Encoding fallbackEncoding)
+        private static Encoding GetResponseEncoding(HttpContent content)
         {
             if (content.Headers.ContentType?.CharSet == null)
-                return fallbackEncoding;
+                return FallbackEncoding;
 
             try
             {
@@ -805,14 +809,14 @@ namespace WebDav
             }
             catch (ArgumentException)
             {
-                return fallbackEncoding;
+                return FallbackEncoding;
             }
         }
 
         private static async Task<string> ReadContentAsString(HttpContent content)
         {
             byte[] bytes = await content.ReadAsByteArrayAsync();
-            Encoding encoding = GetResponseEncoding(content, Encoding.UTF8);
+            Encoding encoding = GetResponseEncoding(content);
 
 #if NETSTANDARD || PORTABLE
             return encoding.GetString(bytes, 0, bytes.Length);
