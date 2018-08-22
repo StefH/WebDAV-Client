@@ -1,4 +1,4 @@
-﻿#if NETSTANDARD1_1 || PORTABLE || UAP
+﻿#if NETSTANDARD1_1 || NETSTANDARD1_2 || PORTABLE || UAP
 // Copied from https://github.com/Microsoft/referencesource/blob/4fe4349175f4c5091d972a7e56ea12012f1e7170/System/compmod/system/componentmodel/InvalidEnumArgumentException.cs
 
 namespace System.ComponentModel

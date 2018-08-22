@@ -820,7 +820,7 @@ namespace WebDav
             byte[] bytes = await content.ReadAsByteArrayAsync();
             Encoding encoding = GetResponseEncoding(content);
 
-#if NETSTANDARD1_1 || PORTABLE
+#if NETSTANDARD1_1 || NETSTANDARD1_2 || PORTABLE
             return encoding.GetString(bytes, 0, bytes.Length);
 #else
             return encoding.GetString(bytes);
