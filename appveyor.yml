@@ -3,7 +3,6 @@ os: Visual Studio 2015
 version: 1.0.3.{build}
 
 configuration:
-- Debug
 - Release
 
 platform: Any CPU
@@ -27,7 +26,10 @@ before_build:
 - cmd: copy /Y src\WebDAV-Client\WebDAV-Client_AppVeyor.csproj src\WebDAV-Client\WebDAV-Client.csproj
 
 # Restore WebDAV-Client
-- dotnet restore .\src\WebDAV-Client\WebDAV-Client.csproj -v Minimal
+- dotnet restore .\src\WebDAV-Client\WebDAV-Client.csproj
+
+# Restore WebDAV-Client.Tests
+- dotnet restore .\test\WebDAV-Client.Tests\WebDAV-Client.Tests.csproj
 
 # Restore WebDAV-Client.Tests.Net452
 - nuget restore .\test\WebDAV-Client.Tests.Net452\WebDAV-Client.Tests.Net452.csproj -PackagesDirectory packages
@@ -36,16 +38,19 @@ build_script:
 # build WebDAV-Client
 - dotnet build .\src\WebDAV-Client\WebDAV-Client.csproj -c %CONFIGURATION%
 
-# Restore and build WebDAV-Client.Tests
-#- appveyor-retry dotnet restore .\test\WebDAV-Client.Tests -v Minimal
-#- dotnet build .\test\WebDAV-Client.Tests\project.json -c %CONFIGURATION%
+# build WebDAV-Client.Tests
+- dotnet build .\test\WebDAV-Client.Tests\WebDAV-Client.Tests.csproj -c %CONFIGURATION%
 
 # Build WebDAV-Client.Tests.Net452
-- cmd: msbuild .\test\WebDAV-Client.Tests.Net452\WebDAV-Client.Tests.Net452.csproj /p:Configuration=%CONFIGURATION% /p:Platform=AnyCPU
+#$ - cmd: msbuild .\test\WebDAV-Client.Tests.Net452\WebDAV-Client.Tests.Net452.csproj /p:Configuration=%CONFIGURATION% /p:Platform=AnyCPU
 
 # Run tests from WebDAV-Client.Tests.Net452
 #test_script:
 #- dotnet test -c %CONFIGURATION% --no-build .\test\WebDAV-Client.Tests.Net452
+
+# Run tests from WebDAV-Client.Tests
+#test_script:
+#- dotnet test -c %CONFIGURATION% --no-build .\test\WebDAV-Client.Tests\WebDAV-Client.Tests.csproj
 
 artifacts:
 - path: artifacts\**\*.*

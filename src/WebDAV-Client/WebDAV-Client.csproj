@@ -29,6 +29,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="WebDAV-Client_AppVeyor.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" Version="10.3.0">
       <PrivateAssets>All</PrivateAssets>
     </PackageReference>
