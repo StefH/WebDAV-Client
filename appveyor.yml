@@ -1,4 +1,4 @@
-os: Visual Studio 2015
+os: Visual Studio 2017
 
 version: 1.0.3.{build}
 
@@ -41,19 +41,9 @@ build_script:
 # build WebDAV-Client.Tests
 - dotnet build .\test\WebDAV-Client.Tests\WebDAV-Client.Tests.csproj -c %CONFIGURATION%
 
-# Build WebDAV-Client.Tests.Net452
-#$ - cmd: msbuild .\test\WebDAV-Client.Tests.Net452\WebDAV-Client.Tests.Net452.csproj /p:Configuration=%CONFIGURATION% /p:Platform=AnyCPU
-
-# Run tests from WebDAV-Client.Tests.Net452
-#test_script:
-#- dotnet test -c %CONFIGURATION% --no-build .\test\WebDAV-Client.Tests.Net452
-
 # Run tests from WebDAV-Client.Tests
 test_script:
 - dotnet test -c %CONFIGURATION% --no-build .\test\WebDAV-Client.Tests\WebDAV-Client.Tests.csproj
-
-artifacts:
-- path: artifacts\**\*.*
 
 cache:
 - packages
