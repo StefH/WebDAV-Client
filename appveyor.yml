@@ -27,7 +27,7 @@ before_build:
 - cmd: copy /Y src\WebDAV-Client\WebDAV-Client_AppVeyor.csproj src\WebDAV-Client\WebDAV-Client.csproj
 
 # Restore WebDAV-Client
-- dotnet restore .\src\WebDAV-Client -v Minimal
+- dotnet restore .\src\WebDAV-Client\WebDAV-Client.csproj -v Minimal
 
 # Restore WebDAV-Client.Tests.Net452
 - nuget restore .\test\WebDAV-Client.Tests.Net452\WebDAV-Client.Tests.Net452.csproj -PackagesDirectory packages
