@@ -8,12 +8,13 @@
     <TargetFrameworks>net45;net46;netstandard1.1;netstandard1.2;netstandard2.0;uap10.0</TargetFrameworks>
     <AssemblyName>WebDAV-Client</AssemblyName>
     <PackageId>WebDAV-Client</PackageId>
-    <PackageTags>webdav;client;NETStandard;.NET;Portable</PackageTags>
+    <PackageTags>webdav;client;NETStandard;.NET;Portable;UAP</PackageTags>
     <PackageReleaseNotes>See CHANGELOG.md</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/stefh/WebDAV-Client</PackageProjectUrl>
     <PackageLicenseUrl>https://raw.githubusercontent.com/StefH/WebDAV-Client/master/LICENSE</PackageLicenseUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/stefh/WebDAV-Client</RepositoryUrl>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard1.1'">
