@@ -22,19 +22,26 @@ install:
 environment:
   PATH: $(PATH);$(PROGRAMFILES)\dotnet\
 
+before_build:
+# Remove UAP10 from csproj
+- cmd: copy /Y src\WebDAV-Client\WebDAV-Client_AppVeyor.csproj src\WebDAV-Client\WebDAV-Client.csproj
+
+# Restore WebDAV-Client
+- dotnet restore .\src\WebDAV-Client -v Minimal
+
+# Restore WebDAV-Client.Tests.Net452
+- nuget restore .\test\WebDAV-Client.Tests.Net452\WebDAV-Client.Tests.Net452.csproj -PackagesDirectory packages
+
 build_script:
-# Restore and build WebDAV-Client
-- appveyor-retry dotnet restore .\src\WebDAV-Client -v Minimal
-- dotnet build .\src\WebDAV-Client\project.json -c %CONFIGURATION%
-- dotnet pack -c %CONFIGURATION% --no-build --version-suffix %LABEL% -o .\artifacts .\src\WebDAV-Client\project.json
+# build WebDAV-Client
+- dotnet build .\src\WebDAV-Client\WebDAV-Client.csproj -c %CONFIGURATION%
 
 # Restore and build WebDAV-Client.Tests
 #- appveyor-retry dotnet restore .\test\WebDAV-Client.Tests -v Minimal
 #- dotnet build .\test\WebDAV-Client.Tests\project.json -c %CONFIGURATION%
 
-# Restore and build WebDAV-Client.Tests.Net452
-- appveyor-retry nuget restore .\test\WebDAV-Client.Tests.Net452\WebDAV-Client.Tests.Net452.csproj -PackagesDirectory packages
-- cmd: msbuild                 .\test\WebDAV-Client.Tests.Net452\WebDAV-Client.Tests.Net452.csproj /p:Configuration=%CONFIGURATION% /p:Platform=AnyCPU
+# Build WebDAV-Client.Tests.Net452
+- cmd: msbuild .\test\WebDAV-Client.Tests.Net452\WebDAV-Client.Tests.Net452.csproj /p:Configuration=%CONFIGURATION% /p:Platform=AnyCPU
 
 # Run tests from WebDAV-Client.Tests.Net452
 #test_script:
