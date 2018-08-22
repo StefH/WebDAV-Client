@@ -128,7 +128,7 @@ namespace WebDav.Client.Tests.Response
             Assert.Equal("@Me", @lock.Owner.Value);
             Assert.IsType(typeof(PrincipalLockOwner), @lock.Owner);
             Assert.Equal("http://www.example.com/1.txt", @lock.LockRoot);
-            Assert.Equal(null, @lock.Timeout);
+            Assert.Null(@lock.Timeout);
 
             Assert.Equal("en", element.ContentLanguage);
             Assert.Equal(4, element.ContentLength.Value);
