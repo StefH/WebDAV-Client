@@ -801,7 +801,9 @@ namespace WebDav
         private static Encoding GetResponseEncoding(HttpContent content)
         {
             if (content.Headers.ContentType?.CharSet == null)
+            {
                 return FallbackEncoding;
+            }
 
             try
             {
@@ -818,7 +820,7 @@ namespace WebDav
             byte[] bytes = await content.ReadAsByteArrayAsync();
             Encoding encoding = GetResponseEncoding(content);
 
-#if NETSTANDARD || PORTABLE
+#if NETSTANDARD1_1 || NETSTANDARD1_2 || PORTABLE
             return encoding.GetString(bytes, 0, bytes.Length);
 #else
             return encoding.GetString(bytes);
@@ -828,16 +830,24 @@ namespace WebDav
         private Uri GetAbsoluteUri(Uri uri)
         {
             if (uri == null && _dispatcher.BaseAddress == null)
+            {
                 throw CreateInvalidUriException();
+            }
 
             if (uri == null)
+            {
                 return _dispatcher.BaseAddress;
+            }
 
             if (uri.IsAbsoluteUri)
+            {
                 return uri;
+            }
 
             if (_dispatcher.BaseAddress == null)
+            {
                 throw CreateInvalidUriException();
+            }
 
             return new Uri(_dispatcher.BaseAddress, uri);
         }

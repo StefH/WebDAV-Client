@@ -1,0 +1,84 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>An easy-to-use async WebDAV client for .NET, .NETStandard, UAP and Portable based on https://github.com/skazantsev/WebDavClient.</Description>
+    <AssemblyTitle>WebDAV-Client</AssemblyTitle>
+    <VersionPrefix>1.0.3.0</VersionPrefix>
+    <Authors>Sergey Kazantsev;Stef Heyenrath</Authors>
+    <TargetFrameworks>net45;net46;netstandard1.1;netstandard1.2;netstandard2.0;uap10.0</TargetFrameworks>
+    <AssemblyName>WebDAV-Client</AssemblyName>
+    <PackageId>WebDAV-Client</PackageId>
+    <PackageTags>webdav;client;NETStandard;.NET;Portable</PackageTags>
+    <PackageReleaseNotes>See CHANGELOG.md</PackageReleaseNotes>
+    <PackageProjectUrl>https://github.com/stefh/WebDAV-Client</PackageProjectUrl>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/StefH/WebDAV-Client/master/LICENSE</PackageLicenseUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/stefh/WebDAV-Client</RepositoryUrl>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard1.1'">
+    <PackageTargetFallback>$(PackageTargetFallback);portable-net45+win8+wpa81;portable-net45+win8</PackageTargetFallback>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard1.2'">
+    <PackageTargetFallback>$(PackageTargetFallback);portable-net451+win81+wpa81;portable-win81+wpa81;portable-net451+win81</PackageTargetFallback>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)' == 'uap10.0'">
+    <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+    <NugetTargetMoniker>UAP,Version=v10.0</NugetTargetMoniker>
+    <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
+    <TargetPlatformVersion>10.0.14393.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
+    <TargetFrameworkIdentifier>.NETCore</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
+    <DefineConstants>$(DefineConstants);WINDOWS_UWP;UAP10_0;UAP</DefineConstants>
+    <LanguageTargets>$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets</LanguageTargets>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="WebDAV-Client_AppVeyor.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="JetBrains.Annotations" Version="10.3.0">
+      <PrivateAssets>All</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
+    <Reference Include="System.Net.Http" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net46' ">
+    <Reference Include="System.Net.Http" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.1' or '$(TargetFramework)' == 'netstandard1.2'">
+    <!--<PackageReference Include="System.Collections" Version="4.3.0" />
+    <PackageReference Include="System.Diagnostics.Debug" Version="4.3.0" />
+    <PackageReference Include="System.Linq" Version="4.3.0" />
+    <PackageReference Include="System.Runtime" Version="4.3.0" />
+    <PackageReference Include="System.Runtime.Extensions" Version="4.3.0" />
+    <PackageReference Include="System.Text.Encoding" Version="4.3.0" />
+    <PackageReference Include="System.Text.RegularExpressions" Version="4.3.0" />-->
+    <PackageReference Include="System.Net.Http" Version="4.3.0" />
+    <!--<PackageReference Include="System.Xml.XDocument" Version="4.3.0" />-->
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+    <PackageReference Include="System.Net.Http" Version="4.3.3" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'uap10.0' ">
+    <PackageReference Include="System.Collections" Version="4.3.0" />
+    <PackageReference Include="System.Diagnostics.Debug" Version="4.3.0" />
+    <PackageReference Include="System.Linq" Version="4.3.0" />
+    <PackageReference Include="System.Runtime" Version="4.3.0" />
+    <PackageReference Include="System.Runtime.Extensions" Version="4.3.0" />
+    <PackageReference Include="System.Text.RegularExpressions" Version="4.3.0" />
+    <PackageReference Include="System.Net.Http" Version="4.3.0" />
+    <PackageReference Include="System.Xml.XDocument" Version="4.3.0" />
+  </ItemGroup>
+
+</Project>
