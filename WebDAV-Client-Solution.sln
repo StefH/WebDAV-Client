@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solution Items", "{7898F0E5-AE83-4BE9-B8D9-BBD92A4858DF}"
 	ProjectSection(SolutionItems) = preProject
 		appveyor.yml = appveyor.yml
+		CHANGELOG.md = CHANGELOG.md
 		GitReleaseNotes.txt = GitReleaseNotes.txt
 		README.md = README.md
 	EndProjectSection
