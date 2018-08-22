@@ -11,7 +11,7 @@ An easy-to-use async WebDAV client for .NET, .NETStandard, UAP and Portable base
 - NETStandard 1.1
 - NETStandard 2.0
 - UAP
-- Portable (Profile111 and Profile151), more information [portablelibraryprofiles](https://portablelibraryprofiles.stephencleary.com/).Note that this is only supported for version 1.0.2.0 and lower.
+- Portable (Profile111 and Profile151), more information [portablelibraryprofiles](https://portablelibraryprofiles.stephencleary.com/). Note that this is only supported for version 1.0.2.0 and lower.
 
 #### Basic usage
 ``` csharp
