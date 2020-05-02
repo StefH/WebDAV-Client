@@ -6,11 +6,9 @@ An easy-to-use async WebDAV client for .NET, .NETStandard, UAP and Portable base
 [![Build status](https://ci.appveyor.com/api/projects/status/0cnrtg214gonta1g?svg=true)](https://ci.appveyor.com/project/StefH/webdav-client)
 
 #### Supported Frameworks
-- NET 4.5
-- NET 4.6
-- NETStandard 1.1
-- NETStandard 2.0
-- UAP
+- NET 4.5 and 4.6
+- NETStandard 1.1, 2.0 and 2.1
+- Blazor WASM
 - Portable (Profile7, Profile32, Profile44, Profile111, Profile115). See [portablelibraryprofiles](https://portablelibraryprofiles.stephencleary.com/).
 
 #### Basic usage
@@ -84,4 +82,4 @@ using (var webDavClient = new WebDavClient(clientParams))
 ```
 
 #### License
-WebDAVClient is licensed under the MIT License. See [LICENSE.txt](https://github.com/stefh/WebDAV-Client/blob/master/LICENSE.txt) for more details.
+WebDAV-Client is licensed under the MIT License.
