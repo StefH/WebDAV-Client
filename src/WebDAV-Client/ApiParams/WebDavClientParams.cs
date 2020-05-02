@@ -17,9 +17,9 @@ namespace WebDav
         {
             UseDefaultCredentials = true;
             DefaultRequestHeaders = new Dictionary<string, string>();
-            PreAuthenticate = true;
-            Timeout = TimeSpan.FromMilliseconds(System.Threading.Timeout.Infinite);
+            Timeout = TimeSpan.FromMilliseconds(-1); // Infinite timespan is nothing but TimeSpan with milliseconds set to -1
             UseProxy = true;
+            PreAuthenticate = true;
         }
 
         /// <summary>

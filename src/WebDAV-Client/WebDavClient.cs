@@ -753,32 +753,52 @@ namespace WebDav
             HttpMessageHandler httpMessageHandler = @params.HttpMessageHandler;
             if (httpMessageHandler == null)
             {
-                var httpHandler = new HttpClientHandler
-                {
-                    AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip,
-                    PreAuthenticate = @params.PreAuthenticate,
-                    UseDefaultCredentials = @params.UseDefaultCredentials,
-                    UseProxy = @params.UseProxy
-                };
+                var httpHandler = new HttpClientHandler();
 
-                if (@params.Credentials != null)
+                // Fixes for Blazor WASM
+                if (RuntimeUtils.IsBlazorWASM)
                 {
-                    httpHandler.Credentials = @params.Credentials;
+                    httpHandler.UseDefaultCredentials = @params.UseDefaultCredentials;
+                    httpHandler.PreAuthenticate = @params.PreAuthenticate;
+                    httpHandler.UseProxy = @params.UseProxy;
+
+                    if (@params.Credentials != null)
+                    {
+                        httpHandler.Credentials = @params.Credentials;
+                    }
+
+                    if (@params.Proxy != null)
+                    {
+                        httpHandler.Proxy = @params.Proxy;
+                    }
                 }
 
-                if (@params.Proxy != null)
+                // Fix for Blazor WASM
+                if (httpHandler.SupportsAutomaticDecompression)
                 {
-                    httpHandler.Proxy = @params.Proxy;
+                    httpHandler.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
                 }
 
                 httpMessageHandler = httpHandler;
             }
 
-            var httpClient = new HttpClient(httpMessageHandler, true)
+            HttpClient httpClient;
+            if (RuntimeUtils.IsBlazorWASM)
             {
-                BaseAddress = @params.BaseAddress,
-                Timeout = @params.Timeout
-            };
+                httpClient = new HttpClient
+                {
+                    BaseAddress = @params.BaseAddress,
+                    Timeout = @params.Timeout
+                };
+            }
+            else
+            {
+                httpClient = new HttpClient(httpMessageHandler, true)
+                {
+                    BaseAddress = @params.BaseAddress,
+                    Timeout = @params.Timeout
+                };
+            }
 
             foreach (var header in @params.DefaultRequestHeaders)
             {
