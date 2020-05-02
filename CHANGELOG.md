@@ -1,4 +1,5 @@
 # 1.1.0.0 (02 May 2020)
+- [#6](https://github.com/StefH/WebDAV-Client/pull/6) - Fixes for Blazor WASM [bug] contributed by [StefH](https://github.com/StefH)
 - [#4](https://github.com/StefH/WebDAV-Client/issues/4) - Upgrade project to VS2017
 
 # 1.0.3.0 (22 August 2018)
