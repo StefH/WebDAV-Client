@@ -756,7 +756,7 @@ namespace WebDav
                 var httpHandler = new HttpClientHandler();
 
                 // Fixes for Blazor WASM
-                if (RuntimeUtils.IsBlazorWASM)
+                if (!RuntimeUtils.IsBlazorWASM)
                 {
                     httpHandler.UseDefaultCredentials = @params.UseDefaultCredentials;
                     httpHandler.PreAuthenticate = @params.PreAuthenticate;
