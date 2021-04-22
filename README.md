@@ -3,8 +3,6 @@ An easy-to-use async WebDAV client for .NET, .NETStandard, UAP and Portable base
 
 [![NuGet Badge](https://buildstats.info/nuget/WebDAV-Client)](https://www.nuget.org/packages/WebDAV-Client)
 
-[![Build status](https://ci.appveyor.com/api/projects/status/0cnrtg214gonta1g?svg=true)](https://ci.appveyor.com/project/StefH/webdav-client)
-
 #### Supported Frameworks
 - NET 4.5 and 4.6
 - NETStandard 1.1, 2.0 and 2.1
