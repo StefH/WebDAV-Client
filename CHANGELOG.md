@@ -1,3 +1,6 @@
+# 1.1.1 (04 February 2023)
+- [#8](https://github.com/StefH/WebDAV-Client/pull/8) - Bump System.Net.Http from 4.3.0 to 4.3.4 in /src/WebDAV-Client [dependencies] contributed by [dependabot[bot]](https://github.com/apps/dependabot)
+
 # 1.1.0.0 (02 May 2020)
 - [#6](https://github.com/StefH/WebDAV-Client/pull/6) - Fixes for Blazor WASM [bug] contributed by [StefH](https://github.com/StefH)
 - [#4](https://github.com/StefH/WebDAV-Client/issues/4) - Upgrade project to VS2017
@@ -8,8 +11,4 @@
 
 # 1.0.2.0 (06 March 2017)
 - [#1](https://github.com/StefH/WebDAV-Client/issues/1) - Add support for using a custom HttpClient or HttpMessageHandler [enhancement]
-
-# 1.0.1.0 (08 February 2017)
-
-# 1.0.0.0 (07 February 2017)
 
