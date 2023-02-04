@@ -4,8 +4,9 @@ An easy-to-use async WebDAV client for .NET, .NETStandard, UAP and Portable base
 [![NuGet Badge](https://buildstats.info/nuget/WebDAV-Client)](https://www.nuget.org/packages/WebDAV-Client)
 
 #### Supported Frameworks
-- NET 4.5 and 4.6
-- NETStandard 1.1, 2.0 and 2.1
+- .NET Framework 4.5 and 4.6
+- .NET Standard 1.1, 2.0 and 2.1
+- .NET 6.0 and 7.0
 - Blazor WASM
 - Portable (Profile7, Profile32, Profile44, Profile111, Profile115). See [portablelibraryprofiles](https://portablelibraryprofiles.stephencleary.com/).
 
