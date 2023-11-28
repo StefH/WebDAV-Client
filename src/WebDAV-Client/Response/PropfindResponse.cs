@@ -1,64 +1,62 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using JetBrains.Annotations;
+using Stef.Validation;
 
-namespace WebDav
+namespace WebDav;
+
+/// <summary>
+/// Represents a response of the PROPFIND operation.
+/// </summary>
+public class PropfindResponse : WebDavResponse
 {
     /// <summary>
-    /// Represents a response of the PROPFIND operation.
+    /// Initializes a new instance of the <see cref="PropfindResponse"/> class.
     /// </summary>
-    public class PropfindResponse : WebDavResponse
+    /// <param name="statusCode">The status code of the operation.</param>
+    public PropfindResponse(int statusCode)
+        : this(statusCode, null, new List<WebDavResource>())
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PropfindResponse"/> class.
-        /// </summary>
-        /// <param name="statusCode">The status code of the operation.</param>
-        public PropfindResponse(int statusCode)
-            : this(statusCode, null, new List<WebDavResource>())
-        {
-        }
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PropfindResponse"/> class.
-        /// </summary>
-        /// <param name="statusCode">The status code of the response.</param>
-        /// <param name="resources">The collection of WebDAV resources.</param>
-        public PropfindResponse(int statusCode, IEnumerable<WebDavResource> resources)
-            : this(statusCode, null, resources)
-        {
-        }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PropfindResponse"/> class.
+    /// </summary>
+    /// <param name="statusCode">The status code of the response.</param>
+    /// <param name="resources">The collection of WebDAV resources.</param>
+    public PropfindResponse(int statusCode, IEnumerable<WebDavResource> resources)
+        : this(statusCode, null, resources)
+    {
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PropfindResponse"/> class.
-        /// </summary>
-        /// <param name="statusCode">The status code of the response.</param>
-        /// <param name="description">The description of the response.</param>
-        public PropfindResponse(int statusCode, string description)
-            : this(statusCode, description, new List<WebDavResource>())
-        {
-        }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PropfindResponse"/> class.
+    /// </summary>
+    /// <param name="statusCode">The status code of the response.</param>
+    /// <param name="description">The description of the response.</param>
+    public PropfindResponse(int statusCode, string? description)
+        : this(statusCode, description, new List<WebDavResource>())
+    {
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PropfindResponse"/> class.
-        /// </summary>
-        /// <param name="statusCode">The status code of the response.</param>
-        /// <param name="description">The description of the response.</param>
-        /// <param name="resources">The collection of WebDAV resources.</param>
-        public PropfindResponse(int statusCode, string description, [NotNull] IEnumerable<WebDavResource> resources)
-            : base(statusCode, description)
-        {
-            Check.NotNull(resources, nameof(resources));
-            Resources = resources.ToList();
-        }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PropfindResponse"/> class.
+    /// </summary>
+    /// <param name="statusCode">The status code of the response.</param>
+    /// <param name="description">The description of the response.</param>
+    /// <param name="resources">The collection of WebDAV resources.</param>
+    public PropfindResponse(int statusCode, string? description, IEnumerable<WebDavResource> resources)
+        : base(statusCode, description)
+    {
+        Resources = Guard.NotNull(resources).ToList();
+    }
 
-        /// <summary>
-        /// Gets the collection of WebDAV resources.
-        /// </summary>
-        public IReadOnlyCollection<WebDavResource> Resources { get; private set; }
+    /// <summary>
+    /// Gets the collection of WebDAV resources.
+    /// </summary>
+    public IReadOnlyCollection<WebDavResource> Resources { get; }
 
-        public override string ToString()
-        {
-            return string.Format("PROPFIND WebDAV response - StatusCode: {0}, Description: {1}", StatusCode, Description);
-        }
+    public override string ToString()
+    {
+        return $"PROPFIND WebDAV response - StatusCode: {StatusCode}, Description: {Description}";
     }
 }

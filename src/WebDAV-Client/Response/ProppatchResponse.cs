@@ -1,63 +1,64 @@
 ﻿using System.Collections.Generic;
-using JetBrains.Annotations;
+using System.Diagnostics.CodeAnalysis;
+using Stef.Validation;
 
-namespace WebDav
+namespace WebDav;
+
+/// <summary>
+/// Represents a response of the PROPPATCH operation.
+/// </summary>
+[SuppressMessage("ReSharper", "PossibleMultipleEnumeration")]
+public class ProppatchResponse : WebDavResponse
 {
     /// <summary>
-    /// Represents a response of the PROPPATCH operation.
+    /// Initializes a new instance of the <see cref="ProppatchResponse"/> class.
     /// </summary>
-    public class ProppatchResponse : WebDavResponse
+    /// <param name="statusCode">The status code of the operation.</param>
+    public ProppatchResponse(int statusCode)
+        : this(statusCode, null, new List<WebDavPropertyStatus>())
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ProppatchResponse"/> class.
-        /// </summary>
-        /// <param name="statusCode">The status code of the operation.</param>
-        public ProppatchResponse(int statusCode)
-            : this(statusCode, null, new List<WebDavPropertyStatus>())
-        {
-        }
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ProppatchResponse"/> class.
-        /// </summary>
-        /// <param name="statusCode">The status code of the response.</param>
-        /// <param name="propertyStatuses">The collection of property statuses.</param>
-        public ProppatchResponse(int statusCode, IEnumerable<WebDavPropertyStatus> propertyStatuses)
-            : this(statusCode, null, propertyStatuses)
-        {
-        }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ProppatchResponse"/> class.
+    /// </summary>
+    /// <param name="statusCode">The status code of the response.</param>
+    /// <param name="propertyStatuses">The collection of property statuses.</param>
+    public ProppatchResponse(int statusCode, IEnumerable<WebDavPropertyStatus> propertyStatuses)
+        : this(statusCode, null, propertyStatuses)
+    {
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ProppatchResponse"/> class.
-        /// </summary>
-        /// <param name="statusCode">The status code of the response.</param>
-        /// <param name="description">The description of the response.</param>
-        public ProppatchResponse(int statusCode, string description)
-            : this(statusCode, description, new List<WebDavPropertyStatus>())
-        {
-        }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ProppatchResponse"/> class.
+    /// </summary>
+    /// <param name="statusCode">The status code of the response.</param>
+    /// <param name="description">The description of the response.</param>
+    public ProppatchResponse(int statusCode, string description)
+        : this(statusCode, description, new List<WebDavPropertyStatus>())
+    {
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ProppatchResponse"/> class.
-        /// </summary>
-        /// <param name="statusCode">The status code of the response.</param>
-        /// <param name="description">The description of the response.</param>
-        /// <param name="propertyStatuses">The collection of property statuses.</param>
-        public ProppatchResponse(int statusCode, string description, [NotNull] IEnumerable<WebDavPropertyStatus> propertyStatuses)
-            : base(statusCode, description)
-        {
-            Check.NotNull(propertyStatuses, nameof(propertyStatuses));
-            PropertyStatuses = new List<WebDavPropertyStatus>(propertyStatuses);
-        }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ProppatchResponse"/> class.
+    /// </summary>
+    /// <param name="statusCode">The status code of the response.</param>
+    /// <param name="description">The description of the response.</param>
+    /// <param name="propertyStatuses">The collection of property statuses.</param>
+    public ProppatchResponse(int statusCode, string? description, IEnumerable<WebDavPropertyStatus> propertyStatuses)
+        : base(statusCode, description)
+    {
+        Guard.NotNull(propertyStatuses);
+        PropertyStatuses = new List<WebDavPropertyStatus>(propertyStatuses);
+    }
 
-        /// <summary>
-        /// Gets the collection statuses of set/delete operation on the resource's properties.
-        /// </summary>
-        public IReadOnlyCollection<WebDavPropertyStatus> PropertyStatuses { get; private set; }
+    /// <summary>
+    /// Gets the collection statuses of set/delete operation on the resource's properties.
+    /// </summary>
+    public IReadOnlyCollection<WebDavPropertyStatus> PropertyStatuses { get; private set; }
 
-        public override string ToString()
-        {
-            return string.Format("PROPPATCH WebDAV response - StatusCode: {0}, Description: {1}", StatusCode, Description);
-        }
+    public override string ToString()
+    {
+        return $"PROPPATCH WebDAV response - StatusCode: {StatusCode}, Description: {Description}";
     }
 }
