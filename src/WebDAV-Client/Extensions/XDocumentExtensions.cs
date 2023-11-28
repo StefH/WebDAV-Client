@@ -1,19 +1,18 @@
 ﻿using System.Xml.Linq;
 
-namespace WebDav
+namespace WebDav;
+
+internal static class XDocumentExtensions
 {
-    internal static class XDocumentExtensions
+    public static XDocument? TryParse(string text)
     {
-        public static XDocument TryParse(string text)
+        try
         {
-            try
-            {
-                return XDocument.Parse(text);
-            }
-            catch
-            {
-                return null;
-            }
+            return XDocument.Parse(text);
+        }
+        catch
+        {
+            return null;
         }
     }
 }
