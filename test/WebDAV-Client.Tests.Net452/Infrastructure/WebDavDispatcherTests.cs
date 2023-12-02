@@ -16,7 +16,7 @@ namespace WebDav.Client.Tests.Infrastructure
         {
             using (var dispatcher = new WebDavDispatcher(ConfigureHttpClient()))
             {
-                var response = await dispatcher.Send(new Uri("http://example.com"), HttpMethod.Get, new RequestParameters(), CancellationToken.None);
+                var response = await dispatcher.SendAsync(new Uri("http://example.com"), HttpMethod.Get, new RequestParameters(), CancellationToken.None);
 
                 Assert.IsType(typeof(HttpResponse), response);
                 Assert.Equal(200, response.StatusCode);
@@ -29,7 +29,7 @@ namespace WebDav.Client.Tests.Infrastructure
             using (var dispatcher = new WebDavDispatcher(ConfigureHttpClient()))
             {
                 var requestParams = new RequestParameters { Content = new StringContent("content", Encoding.UTF8, "application/xml") };
-                var response = await dispatcher.Send(new Uri("http://example.com"), HttpMethod.Put, requestParams, CancellationToken.None);
+                var response = await dispatcher.SendAsync(new Uri("http://example.com"), HttpMethod.Put, requestParams, CancellationToken.None);
 
                 Assert.IsType(typeof(HttpResponse), response);
                 Assert.Equal(200, response.StatusCode);
@@ -42,7 +42,7 @@ namespace WebDav.Client.Tests.Infrastructure
             const string responseContent = "content";
             using (var dispatcher = new WebDavDispatcher(ConfigureHttpClient(responseContent)))
             {
-                var response = await dispatcher.Send(new Uri("http://example.com"), HttpMethod.Get, new RequestParameters(), CancellationToken.None);
+                var response = await dispatcher.SendAsync(new Uri("http://example.com"), HttpMethod.Get, new RequestParameters(), CancellationToken.None);
                 Assert.Equal(responseContent, await response.Content.ReadAsStringAsync());
             }
         }
@@ -56,7 +56,7 @@ namespace WebDav.Client.Tests.Infrastructure
                 cts.Cancel();
 
                 await Assert.ThrowsAsync<OperationCanceledException>(
-                    () => dispatcher.Send(new Uri("http://example.com"), HttpMethod.Get, new RequestParameters(), cts.Token));
+                    () => dispatcher.SendAsync(new Uri("http://example.com"), HttpMethod.Get, new RequestParameters(), cts.Token));
             }
         }
 
@@ -66,7 +66,7 @@ namespace WebDav.Client.Tests.Infrastructure
             var httpClient = ConfigureHttpClient();
             using (var dispatcher = new WebDavDispatcher(httpClient))
             {
-                await dispatcher.Send(new Uri("http://example.com"), HttpMethod.Get, new RequestParameters(), CancellationToken.None);
+                await dispatcher.SendAsync(new Uri("http://example.com"), HttpMethod.Get, new RequestParameters(), CancellationToken.None);
                 httpClient.DidNotReceive().Dispose();
             }
 

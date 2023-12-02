@@ -49,10 +49,10 @@ namespace WebDav.Client.Tests.WebDavClientTests
             var dispatcher = Dispatcher.Mock();
             var client = new WebDavClient().SetWebDavDispatcher(dispatcher);
 
-            await dispatcher.DidNotReceiveWithAnyArgs().Send(requestUri, Arg.Any<HttpMethod>(), new RequestParameters(), CancellationToken.None);
+            await dispatcher.DidNotReceiveWithAnyArgs().SendAsync(requestUri, Arg.Any<HttpMethod>(), new RequestParameters(), CancellationToken.None);
             await client.PutFile(requestUri, stream);
             await dispatcher.Received(1)
-                .Send(requestUri, HttpMethod.Put, Arg.Is(Predicates.CompareRequestContent("<content/>")), CancellationToken.None);
+                .SendAsync(requestUri, HttpMethod.Put, Arg.Is(Predicates.CompareRequestContent("<content/>")), CancellationToken.None);
         }
 
         [Fact]
@@ -65,7 +65,7 @@ namespace WebDav.Client.Tests.WebDavClientTests
 
             await client.PutFile("http://example.com/file", stream, new PutFileParameters { CancellationToken = cts.Token });
             await dispatcher.Received(1)
-                .Send(Arg.Any<Uri>(), HttpMethod.Put, Arg.Is(Predicates.CompareRequestContent("<content/>")), cts.Token);
+                .SendAsync(Arg.Any<Uri>(), HttpMethod.Put, Arg.Is(Predicates.CompareRequestContent("<content/>")), cts.Token);
         }
 
         [Fact]
@@ -76,10 +76,10 @@ namespace WebDav.Client.Tests.WebDavClientTests
             var dispatcher = Dispatcher.Mock();
             var client = new WebDavClient().SetWebDavDispatcher(dispatcher);
 
-            await dispatcher.DidNotReceiveWithAnyArgs().Send(requestUri, Arg.Any<HttpMethod>(), new RequestParameters(), CancellationToken.None);
+            await dispatcher.DidNotReceiveWithAnyArgs().SendAsync(requestUri, Arg.Any<HttpMethod>(), new RequestParameters(), CancellationToken.None);
             await client.PutFile(requestUri, stream, new PutFileParameters { LockToken = "urn:uuid:e71d4fae-5dec-22d6-fea5-00a0c91e6be4" });
             await dispatcher.Received(1)
-                .Send(requestUri, HttpMethod.Put, Arg.Is(Predicates.CompareHeader("If", "(<urn:uuid:e71d4fae-5dec-22d6-fea5-00a0c91e6be4>)")), CancellationToken.None);
+                .SendAsync(requestUri, HttpMethod.Put, Arg.Is(Predicates.CompareHeader("If", "(<urn:uuid:e71d4fae-5dec-22d6-fea5-00a0c91e6be4>)")), CancellationToken.None);
         }
 
         [Fact]
@@ -90,10 +90,10 @@ namespace WebDav.Client.Tests.WebDavClientTests
             var dispatcher = Dispatcher.Mock();
             var client = new WebDavClient().SetWebDavDispatcher(dispatcher);
 
-            await dispatcher.DidNotReceiveWithAnyArgs().Send(requestUri, Arg.Any<HttpMethod>(), new RequestParameters(), CancellationToken.None);
+            await dispatcher.DidNotReceiveWithAnyArgs().SendAsync(requestUri, Arg.Any<HttpMethod>(), new RequestParameters(), CancellationToken.None);
             await client.PutFile(requestUri, stream, new PutFileParameters { ContentType = "text/xml" });
             await dispatcher.Received(1)
-                .Send(requestUri, HttpMethod.Put, Arg.Is<RequestParameters>(x => x.ContentType == "text/xml"), CancellationToken.None);
+                .SendAsync(requestUri, HttpMethod.Put, Arg.Is<RequestParameters>(x => x.ContentType == "text/xml"), CancellationToken.None);
         }
     }
 }

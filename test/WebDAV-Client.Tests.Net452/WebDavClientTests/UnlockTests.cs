@@ -39,10 +39,10 @@ namespace WebDav.Client.Tests.WebDavClientTests
             var dispatcher = Dispatcher.Mock();
             var client = new WebDavClient().SetWebDavDispatcher(dispatcher);
 
-            await dispatcher.DidNotReceiveWithAnyArgs().Send(requestUri, Arg.Any<HttpMethod>(), new RequestParameters(), CancellationToken.None);
+            await dispatcher.DidNotReceiveWithAnyArgs().SendAsync(requestUri, Arg.Any<HttpMethod>(), new RequestParameters(), CancellationToken.None);
             await client.Unlock(requestUri, "lock-token");
             await dispatcher.Received(1)
-                .Send(requestUri, WebDavMethod.Unlock, Arg.Is<RequestParameters>(x => x.Content == null), CancellationToken.None);
+                .SendAsync(requestUri, WebDavMethod.Unlock, Arg.Is<RequestParameters>(x => x.Content == null), CancellationToken.None);
         }
 
         [Fact]
@@ -54,7 +54,7 @@ namespace WebDav.Client.Tests.WebDavClientTests
 
             await client.Unlock("http://example.com/file", new UnlockParameters("lock-token") { CancellationToken = cts.Token });
             await dispatcher.Received(1)
-                .Send(Arg.Any<Uri>(), WebDavMethod.Unlock, Arg.Is<RequestParameters>(x => x.Content == null), cts.Token);
+                .SendAsync(Arg.Any<Uri>(), WebDavMethod.Unlock, Arg.Is<RequestParameters>(x => x.Content == null), cts.Token);
         }
 
         [Fact]
@@ -64,16 +64,16 @@ namespace WebDav.Client.Tests.WebDavClientTests
             var dispatcher = Dispatcher.Mock();
             var client = new WebDavClient().SetWebDavDispatcher(dispatcher);
 
-            await dispatcher.DidNotReceiveWithAnyArgs().Send(requestUri, Arg.Any<HttpMethod>(), new RequestParameters(), CancellationToken.None);
+            await dispatcher.DidNotReceiveWithAnyArgs().SendAsync(requestUri, Arg.Any<HttpMethod>(), new RequestParameters(), CancellationToken.None);
 
             await client.Unlock(requestUri, "urn:uuid:e71d4fae-5dec-22d6-fea5-00a0c91e6be4");
             await client.Unlock(requestUri, new UnlockParameters("urn:uuid:f81d4fae-7dec-11d0-a765-00a0c91e6bf6"));
 
             await dispatcher.Received(1)
-                .Send(requestUri, WebDavMethod.Unlock, Arg.Is(Predicates.CompareHeader("Lock-Token", "<urn:uuid:e71d4fae-5dec-22d6-fea5-00a0c91e6be4>")), CancellationToken.None);
+                .SendAsync(requestUri, WebDavMethod.Unlock, Arg.Is(Predicates.CompareHeader("Lock-Token", "<urn:uuid:e71d4fae-5dec-22d6-fea5-00a0c91e6be4>")), CancellationToken.None);
 
             await dispatcher.Received(1)
-                .Send(requestUri, WebDavMethod.Unlock, Arg.Is(Predicates.CompareHeader("Lock-Token", "<urn:uuid:f81d4fae-7dec-11d0-a765-00a0c91e6bf6>")), CancellationToken.None);
+                .SendAsync(requestUri, WebDavMethod.Unlock, Arg.Is(Predicates.CompareHeader("Lock-Token", "<urn:uuid:f81d4fae-7dec-11d0-a765-00a0c91e6bf6>")), CancellationToken.None);
         }
     }
 }

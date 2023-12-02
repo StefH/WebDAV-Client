@@ -53,10 +53,10 @@ namespace WebDav.Client.Tests.WebDavClientTests
             var dispatcher = Dispatcher.Mock();
             var client = new WebDavClient().SetWebDavDispatcher(dispatcher);
 
-            await dispatcher.DidNotReceiveWithAnyArgs().Send(requestUri, Arg.Any<HttpMethod>(), new RequestParameters(), CancellationToken.None);
+            await dispatcher.DidNotReceiveWithAnyArgs().SendAsync(requestUri, Arg.Any<HttpMethod>(), new RequestParameters(), CancellationToken.None);
             await client.Proppatch(requestUri, new ProppatchParameters());
             await dispatcher.Received(1)
-                .Send(requestUri, WebDavMethod.Proppatch, Arg.Is<RequestParameters>(x => !x.Headers.Any()), CancellationToken.None);
+                .SendAsync(requestUri, WebDavMethod.Proppatch, Arg.Is<RequestParameters>(x => !x.Headers.Any()), CancellationToken.None);
         }
 
         [Fact]
@@ -68,7 +68,7 @@ namespace WebDav.Client.Tests.WebDavClientTests
 
             await client.Proppatch("http://example.com", new ProppatchParameters { CancellationToken = cts.Token });
             await dispatcher.Received(1)
-                .Send(Arg.Any<Uri>(), WebDavMethod.Proppatch, Arg.Is<RequestParameters>(x => !x.Headers.Any()), cts.Token);
+                .SendAsync(Arg.Any<Uri>(), WebDavMethod.Proppatch, Arg.Is<RequestParameters>(x => !x.Headers.Any()), cts.Token);
         }
 
         [Fact]
@@ -82,7 +82,7 @@ namespace WebDav.Client.Tests.WebDavClientTests
 
             await client.Proppatch("http://example.com", new ProppatchParameters());
             await dispatcher.Received(1)
-                .Send(Arg.Any<Uri>(), WebDavMethod.Proppatch, Arg.Is(Predicates.CompareRequestContent(expectedContent)), CancellationToken.None);
+                .SendAsync(Arg.Any<Uri>(), WebDavMethod.Proppatch, Arg.Is(Predicates.CompareRequestContent(expectedContent)), CancellationToken.None);
         }
 
         [Fact]
@@ -110,7 +110,7 @@ namespace WebDav.Client.Tests.WebDavClientTests
             };
             await client.Proppatch("http://example.com", new ProppatchParameters { PropertiesToSet = propertiesToSet });
             await dispatcher.Received(1)
-                .Send(Arg.Any<Uri>(), WebDavMethod.Proppatch, Arg.Is(Predicates.CompareRequestContent(expectedContent)), CancellationToken.None);
+                .SendAsync(Arg.Any<Uri>(), WebDavMethod.Proppatch, Arg.Is(Predicates.CompareRequestContent(expectedContent)), CancellationToken.None);
         }
 
         [Fact]
@@ -143,7 +143,7 @@ namespace WebDav.Client.Tests.WebDavClientTests
             };
             await client.Proppatch("http://example.com", new ProppatchParameters { PropertiesToSet = propertiesToSet, Namespaces = ns});
             await dispatcher.Received(1)
-                .Send(Arg.Any<Uri>(), WebDavMethod.Proppatch, Arg.Is(Predicates.CompareRequestContent(expectedContent)), CancellationToken.None);
+                .SendAsync(Arg.Any<Uri>(), WebDavMethod.Proppatch, Arg.Is(Predicates.CompareRequestContent(expectedContent)), CancellationToken.None);
         }
 
         [Fact]
@@ -166,7 +166,7 @@ namespace WebDav.Client.Tests.WebDavClientTests
 
             await client.Proppatch("http://example.com", new ProppatchParameters { PropertiesToRemove = new XName[] { "prop1", "prop2" } });
             await dispatcher.Received(1)
-                .Send(Arg.Any<Uri>(), WebDavMethod.Proppatch, Arg.Is(Predicates.CompareRequestContent(expectedContent)), CancellationToken.None);
+                .SendAsync(Arg.Any<Uri>(), WebDavMethod.Proppatch, Arg.Is(Predicates.CompareRequestContent(expectedContent)), CancellationToken.None);
         }
 
         [Fact]
@@ -199,7 +199,7 @@ namespace WebDav.Client.Tests.WebDavClientTests
             };
             await client.Proppatch("http://example.com", new ProppatchParameters { PropertiesToRemove = propertiesToRemove, Namespaces = ns});
             await dispatcher.Received(1)
-                .Send(Arg.Any<Uri>(), WebDavMethod.Proppatch, Arg.Is(Predicates.CompareRequestContent(expectedContent)), CancellationToken.None);
+                .SendAsync(Arg.Any<Uri>(), WebDavMethod.Proppatch, Arg.Is(Predicates.CompareRequestContent(expectedContent)), CancellationToken.None);
         }
     }
 }

@@ -14,7 +14,7 @@ namespace WebDav.Client.Tests.TestDoubles
         {
             var dispatcher = Substitute.For<IWebDavDispatcher>();
             dispatcher
-                .Send(Arg.Any<Uri>(), Arg.Any<HttpMethod>(), Arg.Any<RequestParameters>(), Arg.Any<CancellationToken>())
+                .SendAsync(Arg.Any<Uri>(), Arg.Any<HttpMethod>(), Arg.Any<RequestParameters>(), Arg.Any<CancellationToken>())
                 .Returns(x => Task.FromResult(new HttpResponse(new StringContent(content, Encoding.UTF8, "application/xml"), statusCode, description)));
             return dispatcher;
         }
@@ -23,7 +23,7 @@ namespace WebDav.Client.Tests.TestDoubles
         {
             var dispatcher = Substitute.For<IWebDavDispatcher>();
             dispatcher
-                .Send(Arg.Any<Uri>(), Arg.Any<HttpMethod>(), Arg.Any<RequestParameters>(), Arg.Any<CancellationToken>())
+                .SendAsync(Arg.Any<Uri>(), Arg.Any<HttpMethod>(), Arg.Any<RequestParameters>(), Arg.Any<CancellationToken>())
                 .Returns(x => Task.FromResult(new HttpResponse(new StringContent(string.Empty), 500, "Internal Server Error")));
             return dispatcher;
         }

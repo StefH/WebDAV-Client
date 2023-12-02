@@ -1,10 +1,9 @@
 ﻿using System;
 
 // ReSharper disable once CheckNamespace
-namespace WebDav
+namespace WebDav;
+
+internal static class RuntimeUtils
 {
-    internal static class RuntimeUtils
-    {
-        public static bool IsBlazorWASM => Type.GetType("Mono.Runtime") != null;
-    }
+    public static bool IsBlazorWASM => Type.GetType("Mono.Runtime") != null;
 }

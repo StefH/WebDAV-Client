@@ -41,10 +41,10 @@ namespace WebDav.Client.Tests.WebDavClientTests
             var dispatcher = Dispatcher.Mock();
             var client = new WebDavClient().SetWebDavDispatcher(dispatcher);
 
-            await dispatcher.DidNotReceiveWithAnyArgs().Send(sourceUri, Arg.Any<HttpMethod>(), new RequestParameters(), CancellationToken.None);
+            await dispatcher.DidNotReceiveWithAnyArgs().SendAsync(sourceUri, Arg.Any<HttpMethod>(), new RequestParameters(), CancellationToken.None);
             await client.Move(sourceUri, new Uri("http://example.com/new"));
             await dispatcher.Received(1)
-                .Send(sourceUri, WebDavMethod.Move, Arg.Is(CheckMoveRequestParameters()), CancellationToken.None);
+                .SendAsync(sourceUri, WebDavMethod.Move, Arg.Is(CheckMoveRequestParameters()), CancellationToken.None);
         }
 
         [Fact]
@@ -54,10 +54,10 @@ namespace WebDav.Client.Tests.WebDavClientTests
             var dispatcher = Dispatcher.Mock();
             var client = new WebDavClient().SetWebDavDispatcher(dispatcher);
 
-            await dispatcher.DidNotReceiveWithAnyArgs().Send(sourceUri, Arg.Any<HttpMethod>(), new RequestParameters(), CancellationToken.None);
+            await dispatcher.DidNotReceiveWithAnyArgs().SendAsync(sourceUri, Arg.Any<HttpMethod>(), new RequestParameters(), CancellationToken.None);
             await client.Move(sourceUri, new Uri("http://example.com/new"));
             await dispatcher.Received(1)
-                .Send(sourceUri, WebDavMethod.Move, Arg.Is(Predicates.CompareHeader("Destination", "http://example.com/new")), CancellationToken.None);
+                .SendAsync(sourceUri, WebDavMethod.Move, Arg.Is(Predicates.CompareHeader("Destination", "http://example.com/new")), CancellationToken.None);
         }
 
         [Fact]
@@ -67,10 +67,10 @@ namespace WebDav.Client.Tests.WebDavClientTests
             var dispatcher = Dispatcher.Mock();
             var client = new WebDavClient().SetWebDavDispatcher(dispatcher);
 
-            await dispatcher.DidNotReceiveWithAnyArgs().Send(sourceUri, Arg.Any<HttpMethod>(), new RequestParameters(), CancellationToken.None);
+            await dispatcher.DidNotReceiveWithAnyArgs().SendAsync(sourceUri, Arg.Any<HttpMethod>(), new RequestParameters(), CancellationToken.None);
             await client.Move(sourceUri, new Uri("http://example.com/new"));
             await dispatcher.Received(1)
-                .Send(sourceUri, WebDavMethod.Move, Arg.Is(Predicates.CompareHeader("Overwrite", "T")), CancellationToken.None);
+                .SendAsync(sourceUri, WebDavMethod.Move, Arg.Is(Predicates.CompareHeader("Overwrite", "T")), CancellationToken.None);
         }
 
         [Fact]
@@ -80,10 +80,10 @@ namespace WebDav.Client.Tests.WebDavClientTests
             var dispatcher = Dispatcher.Mock();
             var client = new WebDavClient().SetWebDavDispatcher(dispatcher);
 
-            await dispatcher.DidNotReceiveWithAnyArgs().Send(sourceUri, Arg.Any<HttpMethod>(), new RequestParameters(), CancellationToken.None);
+            await dispatcher.DidNotReceiveWithAnyArgs().SendAsync(sourceUri, Arg.Any<HttpMethod>(), new RequestParameters(), CancellationToken.None);
             await client.Move(sourceUri, new Uri("http://example.com/new"), new MoveParameters { Overwrite = false });
             await dispatcher.Received(1)
-                .Send(sourceUri, WebDavMethod.Move, Arg.Is(Predicates.CompareHeader("Overwrite", "F")), CancellationToken.None);
+                .SendAsync(sourceUri, WebDavMethod.Move, Arg.Is(Predicates.CompareHeader("Overwrite", "F")), CancellationToken.None);
         }
 
         [Fact]
@@ -93,10 +93,10 @@ namespace WebDav.Client.Tests.WebDavClientTests
             var dispatcher = Dispatcher.Mock();
             var client = new WebDavClient().SetWebDavDispatcher(dispatcher);
 
-            await dispatcher.DidNotReceiveWithAnyArgs().Send(sourceUri, Arg.Any<HttpMethod>(), new RequestParameters(), CancellationToken.None);
+            await dispatcher.DidNotReceiveWithAnyArgs().SendAsync(sourceUri, Arg.Any<HttpMethod>(), new RequestParameters(), CancellationToken.None);
             await client.Move(sourceUri, new Uri("http://example.com/new"), new MoveParameters { Overwrite = true });
             await dispatcher.Received(1)
-                .Send(sourceUri, WebDavMethod.Move, Arg.Is(Predicates.CompareHeader("Overwrite", "T")), CancellationToken.None);
+                .SendAsync(sourceUri, WebDavMethod.Move, Arg.Is(Predicates.CompareHeader("Overwrite", "T")), CancellationToken.None);
         }
 
         [Fact]
@@ -108,7 +108,7 @@ namespace WebDav.Client.Tests.WebDavClientTests
 
             await client.Move("http://example.com/old", "http://example.com/new", new MoveParameters { CancellationToken = cts.Token });
             await dispatcher.Received(1)
-                .Send(Arg.Any<Uri>(), WebDavMethod.Move, Arg.Is(CheckMoveRequestParameters()), cts.Token);
+                .SendAsync(Arg.Any<Uri>(), WebDavMethod.Move, Arg.Is(CheckMoveRequestParameters()), cts.Token);
         }
 
         [Fact]
@@ -118,10 +118,10 @@ namespace WebDav.Client.Tests.WebDavClientTests
             var dispatcher = Dispatcher.Mock();
             var client = new WebDavClient().SetWebDavDispatcher(dispatcher);
 
-            await dispatcher.DidNotReceiveWithAnyArgs().Send(sourceUri, Arg.Any<HttpMethod>(), new RequestParameters(), CancellationToken.None);
+            await dispatcher.DidNotReceiveWithAnyArgs().SendAsync(sourceUri, Arg.Any<HttpMethod>(), new RequestParameters(), CancellationToken.None);
             await client.Move(sourceUri, new Uri("http://example.com/new"), new MoveParameters { DestLockToken = "urn:uuid:e71d4fae-5dec-22d6-fea5-00a0c91e6be4" });
             await dispatcher.Received(1)
-                .Send(sourceUri, WebDavMethod.Move, Arg.Is(Predicates.CompareHeader("If", "(<urn:uuid:e71d4fae-5dec-22d6-fea5-00a0c91e6be4>)")), CancellationToken.None);
+                .SendAsync(sourceUri, WebDavMethod.Move, Arg.Is(Predicates.CompareHeader("If", "(<urn:uuid:e71d4fae-5dec-22d6-fea5-00a0c91e6be4>)")), CancellationToken.None);
         }
 
         [Fact]
@@ -131,10 +131,10 @@ namespace WebDav.Client.Tests.WebDavClientTests
             var dispatcher = Dispatcher.Mock();
             var client = new WebDavClient().SetWebDavDispatcher(dispatcher);
 
-            await dispatcher.DidNotReceiveWithAnyArgs().Send(sourceUri, Arg.Any<HttpMethod>(), new RequestParameters(), CancellationToken.None);
+            await dispatcher.DidNotReceiveWithAnyArgs().SendAsync(sourceUri, Arg.Any<HttpMethod>(), new RequestParameters(), CancellationToken.None);
             await client.Move(sourceUri, new Uri("http://example.com/new"), new MoveParameters { SourceLockToken = "urn:uuid:f81d4fae-7dec-11d0-a765-00a0c91e6bf6" });
             await dispatcher.Received(1)
-                .Send(sourceUri, WebDavMethod.Move, Arg.Is(Predicates.CompareHeader("If", "(<urn:uuid:f81d4fae-7dec-11d0-a765-00a0c91e6bf6>)")), CancellationToken.None);
+                .SendAsync(sourceUri, WebDavMethod.Move, Arg.Is(Predicates.CompareHeader("If", "(<urn:uuid:f81d4fae-7dec-11d0-a765-00a0c91e6bf6>)")), CancellationToken.None);
         }
 
         [Fact]
@@ -144,7 +144,7 @@ namespace WebDav.Client.Tests.WebDavClientTests
             var dispatcher = Dispatcher.Mock();
             var client = new WebDavClient().SetWebDavDispatcher(dispatcher);
 
-            await dispatcher.DidNotReceiveWithAnyArgs().Send(sourceUri, Arg.Any<HttpMethod>(), new RequestParameters(), CancellationToken.None);
+            await dispatcher.DidNotReceiveWithAnyArgs().SendAsync(sourceUri, Arg.Any<HttpMethod>(), new RequestParameters(), CancellationToken.None);
             await client.Move(sourceUri, new Uri("http://example.com/new"),
                 new MoveParameters
                 {
@@ -152,7 +152,7 @@ namespace WebDav.Client.Tests.WebDavClientTests
                     DestLockToken = "urn:uuid:e71d4fae-5dec-22d6-fea5-00a0c91e6be4"
                 });
             await dispatcher.Received(1)
-                .Send(sourceUri, WebDavMethod.Move, Arg.Is(CheckIfHeader()), CancellationToken.None);
+                .SendAsync(sourceUri, WebDavMethod.Move, Arg.Is(CheckIfHeader()), CancellationToken.None);
         }
 
         internal Expression<Predicate<RequestParameters>> CheckIfHeader()

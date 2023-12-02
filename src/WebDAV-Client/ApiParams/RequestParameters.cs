@@ -1,19 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 
-namespace WebDav
+// ReSharper disable once CheckNamespace
+namespace WebDav;
+
+internal class RequestParameters
 {
-    internal class RequestParameters
+    public RequestParameters()
     {
-        public RequestParameters()
-        {
-            Headers = new List<KeyValuePair<string, string>>();
-        }
-
-        public IReadOnlyCollection<KeyValuePair<string, string>> Headers { get; set; }
-
-        public HttpContent Content { get; set; }
-
-        public string ContentType { get; set; }
+        Headers = new List<KeyValuePair<string, string>>();
     }
+
+    public IReadOnlyCollection<KeyValuePair<string, string>> Headers { get; set; }
+
+    public HttpContent? Content { get; set; }
+
+    public string? ContentType { get; set; }
 }

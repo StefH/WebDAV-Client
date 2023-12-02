@@ -1,52 +1,54 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <Description>An easy-to-use async WebDAV client for .NET, .NETStandard, Blazor-WASM and Portable based on https://github.com/skazantsev/WebDavClient.</Description>
-    <AssemblyTitle>WebDAV-Client</AssemblyTitle>
-    <RootNamespace>WebDav</RootNamespace>
-    <VersionPrefix>1.1.2.0</VersionPrefix>
-    <Authors>Sergey Kazantsev;Stef Heyenrath</Authors>
-    <TargetFrameworks>net45;net46;netstandard1.1;netstandard1.2;netstandard2.0;netstandard2.1;net6.0;net7.0</TargetFrameworks>
-    <AssemblyName>WebDAV-Client</AssemblyName>
-    <PackageId>WebDAV-Client</PackageId>
-    <PackageTags>webdav;client;NETStandard;.NET;Portable;Blazor;WASM</PackageTags>
-    <PackageReleaseNotes>See CHANGELOG.md</PackageReleaseNotes>
-    <PackageProjectUrl>https://github.com/stefh/WebDAV-Client</PackageProjectUrl>
-    <PackageLicenseUrl>https://raw.githubusercontent.com/StefH/WebDAV-Client/master/LICENSE</PackageLicenseUrl>
-    <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/stefh/WebDAV-Client</RepositoryUrl>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-  </PropertyGroup>
+	<PropertyGroup>
+		<Description>An easy-to-use async WebDAV client for .NET, .NETStandard, Blazor-WASM and Portable based on https://github.com/skazantsev/WebDavClient.</Description>
+		<AssemblyTitle>WebDAV-Client</AssemblyTitle>
+		<RootNamespace>WebDav</RootNamespace>
+		<VersionPrefix>1.1.3</VersionPrefix>
+		<Authors>Sergey Kazantsev;Stef Heyenrath</Authors>
+		<TargetFrameworks>net45;net46;netstandard1.1;netstandard1.2;netstandard2.0;netstandard2.1;net6.0;net7.0;net8.0</TargetFrameworks>
+		<AssemblyName>WebDAV-Client</AssemblyName>
+		<PackageId>WebDAV-Client</PackageId>
+		<PackageTags>webdav;client;NETStandard;.NET;Portable;Blazor;WASM</PackageTags>
+		<PackageReleaseNotes>See CHANGELOG.md</PackageReleaseNotes>
+		<PackageProjectUrl>https://github.com/stefh/WebDAV-Client</PackageProjectUrl>
+		<PackageLicenseUrl>https://raw.githubusercontent.com/StefH/WebDAV-Client/master/LICENSE</PackageLicenseUrl>
+		<RepositoryType>git</RepositoryType>
+		<RepositoryUrl>https://github.com/stefh/WebDAV-Client</RepositoryUrl>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<LangVersion>latest</LangVersion>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard1.1'">
-    <PackageTargetFallback>$(PackageTargetFallback);portable-net45+win8+wpa81;portable-net45+win8</PackageTargetFallback>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(TargetFramework)' == 'netstandard1.1'">
+		<PackageTargetFallback>$(PackageTargetFallback);portable-net45+win8+wpa81;portable-net45+win8</PackageTargetFallback>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard1.2'">
-    <PackageTargetFallback>$(PackageTargetFallback);portable-net451+win81+wpa81;portable-win81+wpa81;portable-net451+win81</PackageTargetFallback>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(TargetFramework)' == 'netstandard1.2'">
+		<PackageTargetFallback>$(PackageTargetFallback);portable-net451+win81+wpa81;portable-win81+wpa81;portable-net451+win81</PackageTargetFallback>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="JetBrains.Annotations" Version="2022.3.1">
-      <PrivateAssets>All</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="System.Runtime.InteropServices.RuntimeInformation" Version="4.3.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="JetBrains.Annotations" Version="2022.3.1">
+			<PrivateAssets>All</PrivateAssets>
+		</PackageReference>
+		<PackageReference Include="System.Runtime.InteropServices.RuntimeInformation" Version="4.3.0" />
+	</ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
-    <Reference Include="System.Net.Http" />
-  </ItemGroup>
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
+		<Reference Include="System.Net.Http" />
+	</ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net46' ">
-    <Reference Include="System.Net.Http" />
-  </ItemGroup>
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net46' ">
+		<Reference Include="System.Net.Http" />
+	</ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.1' or '$(TargetFramework)' == 'netstandard1.2'">
-    <PackageReference Include="System.Net.Http" Version="4.3.4" />
-  </ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.1' or '$(TargetFramework)' == 'netstandard1.2'">
+		<PackageReference Include="System.Net.Http" Version="4.3.4" />
+	</ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-    <PackageReference Include="System.Net.Http" Version="4.3.4" />
-  </ItemGroup>
+	<ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+		<PackageReference Include="System.Net.Http" Version="4.3.4" />
+	</ItemGroup>
 
 </Project>

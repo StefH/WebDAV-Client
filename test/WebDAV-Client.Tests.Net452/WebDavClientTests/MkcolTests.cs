@@ -40,10 +40,10 @@ namespace WebDav.Client.Tests.WebDavClientTests
             var dispatcher = Dispatcher.Mock();
             var client = new WebDavClient().SetWebDavDispatcher(dispatcher);
 
-            await dispatcher.DidNotReceiveWithAnyArgs().Send(requestUri, Arg.Any<HttpMethod>(), new RequestParameters(), CancellationToken.None);
+            await dispatcher.DidNotReceiveWithAnyArgs().SendAsync(requestUri, Arg.Any<HttpMethod>(), new RequestParameters(), CancellationToken.None);
             await client.Mkcol(requestUri);
             await dispatcher.Received(1)
-                .Send(requestUri, WebDavMethod.Mkcol, Arg.Is<RequestParameters>(x => !x.Headers.Any() && x.Content == null), CancellationToken.None);
+                .SendAsync(requestUri, WebDavMethod.Mkcol, Arg.Is<RequestParameters>(x => !x.Headers.Any() && x.Content == null), CancellationToken.None);
         }
 
         [Fact]
@@ -55,7 +55,7 @@ namespace WebDav.Client.Tests.WebDavClientTests
 
             await client.Mkcol("http://example.com/new", new MkColParameters { CancellationToken = cts.Token });
             await dispatcher.Received(1)
-                .Send(Arg.Any<Uri>(), WebDavMethod.Mkcol, Arg.Is<RequestParameters>(x => !x.Headers.Any() && x.Content == null), cts.Token);
+                .SendAsync(Arg.Any<Uri>(), WebDavMethod.Mkcol, Arg.Is<RequestParameters>(x => !x.Headers.Any() && x.Content == null), cts.Token);
         }
 
         [Fact]
@@ -65,10 +65,10 @@ namespace WebDav.Client.Tests.WebDavClientTests
             var dispatcher = Dispatcher.Mock();
             var client = new WebDavClient().SetWebDavDispatcher(dispatcher);
 
-            await dispatcher.DidNotReceiveWithAnyArgs().Send(requestUri, Arg.Any<HttpMethod>(), new RequestParameters(), CancellationToken.None);
+            await dispatcher.DidNotReceiveWithAnyArgs().SendAsync(requestUri, Arg.Any<HttpMethod>(), new RequestParameters(), CancellationToken.None);
             await client.Mkcol(requestUri, new MkColParameters { LockToken = "urn:uuid:e71d4fae-5dec-22d6-fea5-00a0c91e6be4" });
             await dispatcher.Received(1)
-                .Send(requestUri, WebDavMethod.Mkcol, Arg.Is(Predicates.CompareHeader("If", "(<urn:uuid:e71d4fae-5dec-22d6-fea5-00a0c91e6be4>)")), CancellationToken.None);
+                .SendAsync(requestUri, WebDavMethod.Mkcol, Arg.Is(Predicates.CompareHeader("If", "(<urn:uuid:e71d4fae-5dec-22d6-fea5-00a0c91e6be4>)")), CancellationToken.None);
         }
     }
 }

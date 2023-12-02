@@ -41,10 +41,10 @@ namespace WebDav.Client.Tests.WebDavClientTests
             var dispatcher = Dispatcher.Mock();
             var client = new WebDavClient().SetWebDavDispatcher(dispatcher);
 
-            await dispatcher.DidNotReceiveWithAnyArgs().Send(requestUri, Arg.Any<HttpMethod>(), new RequestParameters(), CancellationToken.None);
+            await dispatcher.DidNotReceiveWithAnyArgs().SendAsync(requestUri, Arg.Any<HttpMethod>(), new RequestParameters(), CancellationToken.None);
             await client.Lock(requestUri);
             await dispatcher.Received(1)
-                .Send(requestUri, WebDavMethod.Lock, Arg.Any<RequestParameters>(), CancellationToken.None);
+                .SendAsync(requestUri, WebDavMethod.Lock, Arg.Any<RequestParameters>(), CancellationToken.None);
         }
 
         [Fact]
@@ -54,10 +54,10 @@ namespace WebDav.Client.Tests.WebDavClientTests
             var dispatcher = Dispatcher.Mock();
             var client = new WebDavClient().SetWebDavDispatcher(dispatcher);
 
-            await dispatcher.DidNotReceiveWithAnyArgs().Send(requestUri, Arg.Any<HttpMethod>(), new RequestParameters(), CancellationToken.None);
+            await dispatcher.DidNotReceiveWithAnyArgs().SendAsync(requestUri, Arg.Any<HttpMethod>(), new RequestParameters(), CancellationToken.None);
             await client.Lock(requestUri);
             await dispatcher.Received(1)
-                .Send(requestUri, WebDavMethod.Lock, Arg.Is<RequestParameters>(x => !x.Headers.Any()), CancellationToken.None);
+                .SendAsync(requestUri, WebDavMethod.Lock, Arg.Is<RequestParameters>(x => !x.Headers.Any()), CancellationToken.None);
         }
 
         [Fact]
@@ -69,7 +69,7 @@ namespace WebDav.Client.Tests.WebDavClientTests
 
             await client.Lock("http://example.com/new", new LockParameters { CancellationToken = cts.Token });
             await dispatcher.Received(1)
-                .Send(Arg.Any<Uri>(), WebDavMethod.Lock, Arg.Any<RequestParameters>(), cts.Token);
+                .SendAsync(Arg.Any<Uri>(), WebDavMethod.Lock, Arg.Any<RequestParameters>(), cts.Token);
         }
 
         [Fact]
@@ -80,7 +80,7 @@ namespace WebDav.Client.Tests.WebDavClientTests
 
             await client.Lock("http://example.com", new LockParameters { ApplyTo = ApplyTo.Lock.ResourceAndAncestors });
             await dispatcher.Received(1)
-                .Send(Arg.Any<Uri>(), WebDavMethod.Lock, Arg.Is(Predicates.CompareHeader("Depth", "infinity")), CancellationToken.None);
+                .SendAsync(Arg.Any<Uri>(), WebDavMethod.Lock, Arg.Is(Predicates.CompareHeader("Depth", "infinity")), CancellationToken.None);
         }
 
         [Fact]
@@ -91,7 +91,7 @@ namespace WebDav.Client.Tests.WebDavClientTests
 
             await client.Lock("http://example.com", new LockParameters { ApplyTo = ApplyTo.Lock.ResourceOnly });
             await dispatcher.Received(1)
-                .Send(Arg.Any<Uri>(), WebDavMethod.Lock, Arg.Is(Predicates.CompareHeader("Depth", "0")), CancellationToken.None);
+                .SendAsync(Arg.Any<Uri>(), WebDavMethod.Lock, Arg.Is(Predicates.CompareHeader("Depth", "0")), CancellationToken.None);
         }
 
         [Fact]
@@ -102,7 +102,7 @@ namespace WebDav.Client.Tests.WebDavClientTests
 
             await client.Lock("http://example.com", new LockParameters { Timeout = TimeSpan.FromMinutes(2) });
             await dispatcher.Received(1)
-                .Send(Arg.Any<Uri>(), WebDavMethod.Lock, Arg.Is(Predicates.CompareHeader("Timeout", "Second-120")), CancellationToken.None);
+                .SendAsync(Arg.Any<Uri>(), WebDavMethod.Lock, Arg.Is(Predicates.CompareHeader("Timeout", "Second-120")), CancellationToken.None);
         }
 
         [Fact]
@@ -123,7 +123,7 @@ namespace WebDav.Client.Tests.WebDavClientTests
 
             await client.Lock("http://example.com");
             await dispatcher.Received(1)
-                .Send(Arg.Any<Uri>(), WebDavMethod.Lock, Arg.Is(Predicates.CompareRequestContent(expectedContent)), CancellationToken.None);
+                .SendAsync(Arg.Any<Uri>(), WebDavMethod.Lock, Arg.Is(Predicates.CompareRequestContent(expectedContent)), CancellationToken.None);
         }
 
         [Fact]
@@ -144,7 +144,7 @@ namespace WebDav.Client.Tests.WebDavClientTests
 
             await client.Lock("http://example.com", new LockParameters { LockScope = LockScope.Shared});
             await dispatcher.Received(1)
-                .Send(Arg.Any<Uri>(), WebDavMethod.Lock, Arg.Is(Predicates.CompareRequestContent(expectedContent)), CancellationToken.None);
+                .SendAsync(Arg.Any<Uri>(), WebDavMethod.Lock, Arg.Is(Predicates.CompareRequestContent(expectedContent)), CancellationToken.None);
         }
 
         [Fact]
@@ -165,7 +165,7 @@ namespace WebDav.Client.Tests.WebDavClientTests
 
             await client.Lock("http://example.com", new LockParameters { LockScope = LockScope.Exclusive });
             await dispatcher.Received(1)
-                .Send(Arg.Any<Uri>(), WebDavMethod.Lock, Arg.Is<RequestParameters>(x => x.Content.ReadAsStringAsync().Result == expectedContent), CancellationToken.None);
+                .SendAsync(Arg.Any<Uri>(), WebDavMethod.Lock, Arg.Is<RequestParameters>(x => x.Content.ReadAsStringAsync().Result == expectedContent), CancellationToken.None);
         }
 
         [Fact]
@@ -187,7 +187,7 @@ namespace WebDav.Client.Tests.WebDavClientTests
 
             await client.Lock("http://example.com", new LockParameters { Owner = new PrincipalLockOwner("James Bond") });
             await dispatcher.Received(1)
-                .Send(Arg.Any<Uri>(), WebDavMethod.Lock, Arg.Is(Predicates.CompareRequestContent(expectedContent)), CancellationToken.None);
+                .SendAsync(Arg.Any<Uri>(), WebDavMethod.Lock, Arg.Is(Predicates.CompareRequestContent(expectedContent)), CancellationToken.None);
         }
 
         [Fact]
@@ -211,7 +211,7 @@ namespace WebDav.Client.Tests.WebDavClientTests
 
             await client.Lock("http://example.com", new LockParameters { Owner = new UriLockOwner("http://example.com/owner") });
             await dispatcher.Received(1)
-                .Send(Arg.Any<Uri>(), WebDavMethod.Lock, Arg.Is(Predicates.CompareRequestContent(expectedContent)), CancellationToken.None);
+                .SendAsync(Arg.Any<Uri>(), WebDavMethod.Lock, Arg.Is(Predicates.CompareRequestContent(expectedContent)), CancellationToken.None);
         }
     }
 }
