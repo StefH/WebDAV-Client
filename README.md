@@ -22,6 +22,9 @@ using (var webDavClient = new WebDavClient())
 }
 ```
 
+#### Usage in Blazor WASM
+See https://github.com/StefH/WebDAV-AudioPlayer/tree/master/src/Blazor-WebDAV-AudioPlayer.v2
+
 #### Using BaseAddress
 ``` csharp
 var clientParams = new WebDavClientParams { BaseAddress = new Uri("http://mywebdav/") };
